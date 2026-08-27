@@ -80,6 +80,26 @@ Uma transição horizontal curta, controlada pelo scroll vertical, pode entregar
 - mobile não reproduzir literalmente a câmera sticky horizontal;
 - a textura e a tipografia criarem uma assinatura própria.
 
+## Estudo 02 — decisão de 27 de agosto de 2026
+
+Após comparar o estudo inicial com a referência, foi decidido preservar o gesto horizontal, mas estudar a coreografia pública com maior fidelidade antes de definir a estética final.
+
+O segundo experimento passa a testar separadamente:
+
+- cena inicial de 130vw;
+- intervalo de 30vw;
+- cena final de 100vw;
+- planos de mídia com velocidades distintas;
+- mudança de escala, enquadramento e saturação;
+- frase vertical dividida em movimentos opostos;
+- faixas contínuas de mídia na cena seguinte;
+- máscara tipográfica;
+- revelação e estabilização defasadas do conteúdo;
+- versão mobile do mesmo gesto;
+- fluxo vertical estático para movimento reduzido.
+
+Esta etapa é um laboratório mecânico. Sua aparência não deve ser interpretada como proposta visual aprovada.
+
 ## O que ainda precisa ser medido
 
 - duração percebida e resistência do scroll em diferentes alturas de viewport;

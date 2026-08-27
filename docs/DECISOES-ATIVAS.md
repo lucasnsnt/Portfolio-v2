@@ -36,6 +36,8 @@ Hero
 - A animação antiga foi escolhida como base do loading: eco cursivo, nome distorcido e revelação em sequência.
 - Hero, projetos e Lab concentram intensidade.
 - Mobile recebe uma versão própria e mais leve.
+- O deslocamento horizontal do experimento de abertura será preservado durante a fase de estudo.
+- Antes da direção visual definitiva, o estudo 02 deve reproduzir com maior fidelidade a densidade mecânica da referência: planos, ponte tipográfica, faixas, máscaras e entradas defasadas.
 
 ## Desempenho
 

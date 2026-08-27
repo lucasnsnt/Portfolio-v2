@@ -1,16 +1,15 @@
 'use client';
 
-import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import styles from './hero-study.module.css';
 
 const mediaTiles = [
-  ['01', 'MOTION', styles.mediaAmber],
-  ['02', 'SYSTEM', styles.mediaBlue],
-  ['03', 'IMAGE', styles.mediaRose],
-  ['04', 'TYPE', styles.mediaOlive],
-  ['05', 'CODE', styles.mediaViolet],
-  ['06', 'SPACE', styles.mediaSilver],
+  ['01', 'DIRECTION', '/media/hero/green-motion.jpg'],
+  ['02', 'INTERFACE', '/media/hero/night-motion.jpg'],
+  ['03', 'MOTION', '/media/hero/monochrome-motion.jpg'],
+  ['04', 'SYSTEM', '/media/hero/galaxy-grain.jpg'],
+  ['05', 'EXPERIENCE', '/media/hero/green-motion.jpg'],
+  ['06', 'DELIVERY', '/media/hero/night-motion.jpg'],
 ];
 
 const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
@@ -61,61 +60,69 @@ export default function HeroStudy() {
   return (
     <main className={styles.page}>
       <header className={styles.nav}>
-        <a href="#prototype">NSNT / MOTION LAB</a>
-        <span>REFERENCE MECHANICS — STUDY 02</span>
-        <Link href="/">VOLTAR</Link>
+        <a href="#inicio">NSNT / LUCAS SANTOS</a>
+        <a href="#servicos">SERVIÇOS</a>
+        <a href="#contato">FALE COMIGO ↗</a>
       </header>
 
-      <section className={styles.track} id="prototype" ref={trackRef}>
+      <section className={styles.track} id="inicio" ref={trackRef}>
         <div className={styles.camera}>
           <div className={styles.frame}>
             <article className={`${styles.chapter} ${styles.opening}`}>
               <div className={styles.mediaStage} aria-hidden="true">
-                <div className={`${styles.mediaPlane} ${styles.mediaPlaneBack}`} />
-                <div className={`${styles.mediaPlane} ${styles.mediaPlaneMiddle}`} />
+                <div className={`${styles.mediaPlane} ${styles.mediaPlaneBack}`}>
+                  <img src="/media/hero/green-motion.jpg" alt="" />
+                </div>
+                <div className={`${styles.mediaPlane} ${styles.mediaPlaneMiddle}`}>
+                  <img src="/media/hero/night-motion.jpg" alt="" />
+                </div>
                 <div className={`${styles.mediaPlane} ${styles.mediaPlaneFront}`}>
-                  <span>MEDIA / PLACEHOLDER</span>
+                  <img src="/media/hero/monochrome-motion.jpg" alt="" />
+                  <span>DESIGN / DEVELOPMENT</span>
                   <strong>01</strong>
                 </div>
                 <div className={styles.mediaPulse} />
+                <div className={styles.scanner} />
               </div>
 
               <div className={styles.openingCopy}>
-                <p>IMMERSIVE INTERFACE STUDY</p>
+                <p>SOFTWARE DEVELOPMENT / CREATIVE DIRECTION</p>
                 <h1>
-                  <span>BUILD THE</span>
-                  <span>UNSEEN</span>
+                  <span>IDEIAS EM</span>
+                  <span>MOVIMENTO</span>
                 </h1>
               </div>
 
               <div className={styles.openingInfo}>
                 <p>
-                  Estudo neutro de enquadramento, profundidade, transição e
-                  resposta ao scroll.
+                  Crio sites profissionais e experiências digitais que unem
+                  estratégia, personalidade e tecnologia.
                 </p>
-                <span>ROLE PARA ATRAVESSAR ↘</span>
+                <span>EXPLORE O TRABALHO ↘</span>
               </div>
 
               <div className={styles.openingFooter}>
-                <span>MEDIA DIRECTION</span>
-                <span>DIGITAL EXPERIENCES</span>
-                <span>SOFTWARE SYSTEMS</span>
+                <span>LANDING PAGES</span>
+                <span>WEB EXPERIENCES</span>
+                <span>SOFTWARE DEVELOPMENT</span>
               </div>
             </article>
 
             <div className={styles.gap} aria-hidden="true">
+              <div className={styles.bridgeMedia} />
               <div className={styles.bridge}>
-                <span className={styles.bridgeTop}>BREAK THE</span>
-                <span className={styles.bridgeBottom}>FRAME</span>
+                <span className={styles.bridgeTop}>DA IDEIA</span>
+                <span className={styles.bridgeBottom}>À INTERFACE</span>
               </div>
-              <span className={styles.gapIndex}>TRANSITION / 01—02</span>
+              <span className={styles.gapIndex}>PROCESSO / 01—02</span>
             </div>
 
             <article className={`${styles.chapter} ${styles.archive}`}>
               <div className={`${styles.carousel} ${styles.carouselTop}`} aria-hidden="true">
                 <div className={styles.carouselRail}>
-                  {[...mediaTiles, ...mediaTiles].map(([number, label, tone], index) => (
-                    <div className={`${styles.mediaTile} ${tone}`} key={`top-${index}`}>
+                  {[...mediaTiles, ...mediaTiles].map(([number, label, image], index) => (
+                    <div className={styles.mediaTile} key={`top-${index}`}>
+                      <img src={image} alt="" />
                       <span>{number}</span>
                       <strong>{label}</strong>
                     </div>
@@ -126,8 +133,9 @@ export default function HeroStudy() {
               <div className={`${styles.carousel} ${styles.carouselBottom}`} aria-hidden="true">
                 <div className={styles.carouselRailReverse}>
                   {[...mediaTiles.slice().reverse(), ...mediaTiles.slice().reverse()].map(
-                    ([number, label, tone], index) => (
-                      <div className={`${styles.mediaTile} ${tone}`} key={`bottom-${index}`}>
+                    ([number, label, image], index) => (
+                      <div className={styles.mediaTile} key={`bottom-${index}`}>
+                        <img src={image} alt="" />
                         <span>{number}</span>
                         <strong>{label}</strong>
                       </div>
@@ -141,7 +149,7 @@ export default function HeroStudy() {
               <div className={styles.archiveContent}>
                 <div className={styles.archiveMeta}>
                   <span>LUCAS SANTOS — SALVADOR, BA</span>
-                  <span>PORTFOLIO / 2026</span>
+                  <span>AVAILABLE FOR SELECTED PROJECTS / 2026</span>
                 </div>
 
                 <div className={styles.titleMask}>
@@ -156,7 +164,7 @@ export default function HeroStudy() {
                     Desenvolvo sites profissionais, landing pages e experiências
                     digitais com direção visual própria.
                   </p>
-                  <a href="#study-end">SOLICITAR ORÇAMENTO ↗</a>
+                  <a href="#contato">SOLICITAR ORÇAMENTO ↗</a>
                 </div>
 
                 <div className={styles.capabilities}>
@@ -174,12 +182,37 @@ export default function HeroStudy() {
         </div>
       </section>
 
-      <section className={styles.after} id="study-end">
-        <p>MECHANICS STUDY / END STATE</p>
-        <h2>A próxima camada será nossa identidade.</h2>
-        <div>
-          <span>FRAME / PARALLAX / MASK / MARQUEE / COLOR EVENTS</span>
-          <Link href="/">Voltar para a fundação</Link>
+      <section className={styles.after} id="servicos">
+        <div className={styles.afterIntro}>
+          <p>COMO POSSO AJUDAR / 01</p>
+          <h2>Da primeira ideia ao site no ar.</h2>
+          <p className={styles.afterLead}>
+            Projetos digitais construídos de ponta a ponta, com clareza técnica
+            e uma direção visual que não parece saída de um template.
+          </p>
+        </div>
+
+        <div className={styles.serviceList}>
+          <article>
+            <span>01</span>
+            <h3>Landing pages</h3>
+            <p>Páginas focadas em apresentar, convencer e gerar contato.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Sites institucionais</h3>
+            <p>Presença digital profissional com estrutura feita para o negócio.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Experiências sob medida</h3>
+            <p>Interfaces, interações e sistemas adaptados a cada projeto.</p>
+          </article>
+        </div>
+
+        <div className={styles.afterFooter} id="contato">
+          <span>PRECISA DE UM SITE? VAMOS CONVERSAR.</span>
+          <a href="https://instagram.com/nsnt">INICIAR CONVERSA ↗</a>
         </div>
       </section>
     </main>

@@ -1,0 +1,67 @@
+{
+  "capturedAt": "2026-08-27T20:38:05.386Z",
+  "page": "https://www.rawcereal.com/",
+  "scope": "Public browser-delivered source code; media assets indexed but not mirrored.",
+  "files": [
+    {
+      "file": "original/home.html",
+      "source": "https://www.rawcereal.com/",
+      "bytes": 142559,
+      "sha256": "1cd0a967519e1b2e7bc0385e6be4887b9469914fa6e6f913343d077dbaea38da"
+    },
+    {
+      "file": "original/css/raw-cereal-staging.webflow.shared.f08b0abd6.min.css",
+      "source": "https://cdn.prod.website-files.com/64f80f44b531ecb990494d99/css/raw-cereal-staging.webflow.shared.f08b0abd6.min.css",
+      "bytes": 183357,
+      "sha256": "c363a179afd4b17b744f58be47b1489e65159fdd068e89db8907ff7ed63b65d6"
+    },
+    {
+      "file": "original/js/jquery-3.5.1.min.js",
+      "source": "https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=64f80f44b531ecb990494d99",
+      "bytes": 89476,
+      "sha256": "f7f6a5894f1d19ddad6fa392b2ece2c5e578cbf7da4ea805b6885eb6985b6e3d"
+    },
+    {
+      "file": "original/js/webflow.schunk.36b8fb49256177c8.js",
+      "source": "https://cdn.prod.website-files.com/64f80f44b531ecb990494d99/js/webflow.schunk.36b8fb49256177c8.js",
+      "bytes": 41429,
+      "sha256": "8b7d0de9f3df9103d70ed000c17b348240623ac4e4053d56fa0d5cfd8d74d79d"
+    },
+    {
+      "file": "original/js/webflow.schunk.2f10a1f5663f000c.js",
+      "source": "https://cdn.prod.website-files.com/64f80f44b531ecb990494d99/js/webflow.schunk.2f10a1f5663f000c.js",
+      "bytes": 425159,
+      "sha256": "667c065ceff0320e72f182a171f16ca63f788e499f5731bf1f3b0cf32c8fd9b5"
+    },
+    {
+      "file": "original/js/webflow.a8fe3dab.f6dc8e593bae5313.js",
+      "source": "https://cdn.prod.website-files.com/64f80f44b531ecb990494d99/js/webflow.a8fe3dab.f6dc8e593bae5313.js",
+      "bytes": 10902,
+      "sha256": "326cabbe27082695843452267268d2dd2205a9e7ee549cf5f1010d7477f930c5"
+    },
+    {
+      "file": "original/js/finsweet-scrolldisable-1.js",
+      "source": "https://cdn.jsdelivr.net/npm/@finsweet/attributes-scrolldisable@1/scrolldisable.js",
+      "bytes": 9461,
+      "sha256": "e83dcf850ec0764e07d449b409dac2382a9c06cbc2e179a4ebf793e04bca2b6c"
+    },
+    {
+      "file": "original/js/gsap-3.6.1.min.js",
+      "source": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js",
+      "bytes": 62549,
+      "sha256": "dce03f3336254bd93ae523da00dc35de7a9851eb33fb6fbe20d94d4d32612a2a"
+    },
+    {
+      "file": "original/js/google-tag-loader.js",
+      "source": "https://www.rawcereal.com/lsfr9no2cgfpNjRmODBmNDRiNTMxZWNiOTkwNDk0ZDk5/QdmxPscez9ZbJnxBindZb_goGl4",
+      "bytes": 600241,
+      "sha256": "1cb863f0be09e3a541f743ed48b1a372196d3377c5b429c1bc9a76d45207a042",
+      "classification": "analytics; preserved for snapshot completeness, not relevant to visual adaptation"
+    }
+  ],
+  "extracted": {
+    "inlineScriptCount": 11,
+    "inlineStyleCount": 11,
+    "assetUrlCount": 138
+  }
+}

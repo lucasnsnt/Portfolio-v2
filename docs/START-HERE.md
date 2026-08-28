@@ -73,22 +73,30 @@ Para decisões sobre stack, dependências e publicação, consulte `docs/BASE-TE
 - Yannick Gregoire: metadados e linguagem de sistema.
 - Imagens pessoais: paleta, textura e atmosfera próprias.
 
+## Estado atual
+
+- O código do portfólio anterior e sua animação de entrada foram auditados.
+- O comportamento público do Raw Cereal foi analisado e documentado sem transformar a referência em template.
+- O loading antigo foi adaptado para introduzir `SOFTWARE DEVELOPER`.
+- A mecânica horizontal de abertura foi validada, ganhou conteúdo profissional e foi promovida para a homepage real.
+- A abertura atual apresenta posicionamento, serviços iniciais e CTA provisório de contato.
+- As imagens pessoais de referência já participam da composição, mas a seleção de fotografia final continua pendente.
+
 ## Próxima etapa
 
-1. Auditar o código completo de `../Portfolio`.
-2. Isolar e compreender a animação de entrada atual.
-3. Auditar comportamento e implementação pública do Raw Cereal e referências prioritárias.
-4. Escolher fontes e calibrar tokens com assets reais.
-5. Criar experimentos isolados para loading, textura e revelação.
-6. Construir o primeiro corte vertical.
+1. Revisar o conteúdo real da hero e da seção de serviços.
+2. Definir a entrada de `Selected Work` e os primeiros projetos que serão apresentados.
+3. Substituir o CTA provisório pela URL profissional definitiva do WhatsApp.
+4. Calibrar tipografia, fotografia, ritmo e legibilidade em desktop e mobile.
+5. Validar a passagem do loading para a hero e da hero para o conteúdo seguinte.
 
-## Definição do primeiro corte vertical
+## Primeiro corte vertical
 
-- Navegação principal.
-- Loading baseado na animação antiga.
-- Hero com posicionamento claro.
-- Primeira entrada de Selected Work.
-- Versão mobile correspondente.
-- Fallback com movimento reduzido.
+- Navegação principal: implementada, ainda sujeita a refinamento de conteúdo.
+- Loading baseado na animação antiga: implementado.
+- Hero com posicionamento e mecânica principal: implementada como base real.
+- Primeira entrada de `Selected Work`: próxima entrega estrutural.
+- Versão mobile correspondente: existe como adaptação inicial e precisa de validação real.
+- Fallback com movimento reduzido: implementado na abertura.
 
 O corte só avança para o restante da homepage após validação pelos critérios do documento 07.

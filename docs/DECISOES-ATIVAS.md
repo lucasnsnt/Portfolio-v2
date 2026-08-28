@@ -29,6 +29,9 @@ Hero
 → Contato
 ```
 
+- A execução real começa na homepage; a antiga tela de fundação foi encerrada.
+- A abertura conduz posicionamento e oferta para a seção inicial de serviços; `Selected Work` será o próximo capítulo acrescentado.
+
 ## Movimento
 
 - Cinco motivos: matéria em deslocamento, revelação por definição, capítulos, texto por recorte e resposta material.
@@ -36,8 +39,18 @@ Hero
 - A animação antiga foi escolhida como base do loading: eco cursivo, nome distorcido e revelação em sequência.
 - Hero, projetos e Lab concentram intensidade.
 - Mobile recebe uma versão própria e mais leve.
-- O deslocamento horizontal do experimento de abertura será preservado durante a fase de estudo.
-- Antes da direção visual definitiva, o estudo 02 deve reproduzir com maior fidelidade a densidade mecânica da referência: planos, ponte tipográfica, faixas, máscaras e entradas defasadas.
+- O deslocamento horizontal foi aprovado como mecânica real da abertura.
+- Planos em profundidade, ponte tipográfica, faixas, máscaras e entradas defasadas formam a base de movimento atual.
+- A animação não deve permanecer parada quando o usuário não rola: as mídias podem ter deriva contínua discreta, preservando legibilidade e desempenho.
+- Imagens pessoais de referência podem ser usadas como matéria visual; a curadoria definitiva ainda depende da fotografia final.
+
+## Implementação atual
+
+- `app/page.tsx` é a entrada real do portfólio.
+- `components/portfolio/` concentra a experiência principal aprovada.
+- `/experiments/raw-cereal-hero` é somente uma rota temporária de compatibilidade e não define a arquitetura do produto.
+- A seção inicial de serviços apresenta landing pages, sites institucionais e experiências sob medida; o texto ainda pode ser refinado sem alterar a estrutura aprovada.
+- O CTA final aponta provisoriamente para o Instagram até a URL profissional do WhatsApp ser definida.
 
 ## Desempenho
 
@@ -50,7 +63,7 @@ Hero
 
 - Título profissional definitivo.
 - Nome público definitivo entre Lucas Santos, NSNT ou combinação.
-- Texto final das seções.
+- Texto definitivo das seções e microcopy da navegação.
 - Projetos selecionados e sua classificação.
 - Primeiro case study completo.
 - Famílias tipográficas finais.

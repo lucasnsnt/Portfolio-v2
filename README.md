@@ -15,18 +15,20 @@ Antes de alterar interface, conteúdo ou arquitetura, leia:
 
 ## Estado atual
 
-- Base técnica criada.
-- Sete documentos de planejamento incorporados ao projeto.
-- Primeira tela de fundação criada para validar o ambiente.
-- Auditoria do portfólio antigo e das referências ainda pendente.
-- Design final e implementação das seções ainda não iniciados.
+- Base técnica e documentação de planejamento consolidadas.
+- Portfólio anterior e Raw Cereal auditados como fontes de princípios e mecânicas.
+- Loading anterior adaptado e integrado à nova abertura.
+- Homepage real implementada com navegação, hero horizontal, posicionamento, mídias em movimento e início da seção de serviços.
+- Adaptações iniciais para mobile e movimento reduzido implementadas.
+- Próximo corte: conteúdo real e entrada de `Selected Work`.
 
 ## Áreas de trabalho
 
 - `app/`: rotas, layout e estilos globais.
-- `components/`: componentes futuros da experiência.
+- `components/portfolio/`: implementação principal da experiência do portfólio.
+- `components/`: componentes compartilhados, incluindo o loading de entrada.
 - `content/`: textos, metadados e estrutura bilíngue.
-- `experiments/`: protótipos isolados de movimento e efeitos.
+- `experiments/`: somente protótipos isolados que ainda não foram promovidos ao produto.
 - `public/assets/`: fotografia, mídia, texturas e fallbacks aprovados.
 - `tests/`: verificações de comportamento, acessibilidade e visual.
 - `docs/`: direção, decisões, auditorias e processo.

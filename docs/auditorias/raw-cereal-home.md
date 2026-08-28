@@ -98,7 +98,7 @@ O segundo experimento passa a testar separadamente:
 - versão mobile do mesmo gesto;
 - fluxo vertical estático para movimento reduzido.
 
-Esta etapa é um laboratório mecânico. Sua aparência não deve ser interpretada como proposta visual aprovada.
+O laboratório mecânico cumpriu sua função. Em seguida, a abertura recebeu conteúdo profissional, imagens próprias e uma primeira seção de serviços. Essa evolução foi aprovada como base da execução real e promovida para `components/portfolio/`. A referência continua limitada a princípios de ritmo, escala, capítulos e movimento; o produto usa conteúdo, assets e decisões próprias.
 
 ## O que ainda precisa ser medido
 

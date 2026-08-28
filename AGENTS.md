@@ -47,6 +47,10 @@ Cada documento mantém sua responsabilidade. Não duplique decisões entre eles 
 - Execute `npm run check` antes de declarar uma entrega concluída.
 - Não declare qualidade visual sem inspecionar uma renderização real.
 
-## Estado inicial
+## Estado atual da execução
 
-A tela atual é apenas uma fundação reconhecível, não o design final. A próxima fase é auditar o portfólio anterior, estudar tecnicamente as referências prioritárias e construir o primeiro corte vertical: navegação, loading adaptado, hero e entrada de Selected Work.
+- A fundação inicial foi substituída pela primeira execução real do portfólio.
+- A homepage em `app/page.tsx` combina o loading adaptado do portfólio anterior com a experiência principal em `components/portfolio/`.
+- A mecânica horizontal inspirada conceitualmente no Raw Cereal foi aprovada como base da abertura, sem importar código ou identidade da referência.
+- A antiga rota `/experiments/raw-cereal-hero` existe apenas como compatibilidade temporária de preview e renderiza a mesma implementação real.
+- O próximo corte deve consolidar conteúdo, fotografia e transição para `Selected Work`, preservando mobile, movimento reduzido e clareza comercial.

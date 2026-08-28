@@ -1,6 +1,5 @@
-import HeroStudy from '../../../experiments/raw-cereal-hero-study/HeroStudy';
+import PortfolioHome from '../../../components/portfolio/PortfolioHome';
 
 export default function RawCerealHeroExperimentPage() {
-  return <HeroStudy />;
+  return <PortfolioHome />;
 }
-

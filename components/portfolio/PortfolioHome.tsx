@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import styles from './hero-study.module.css';
+import styles from './portfolio-home.module.css';
 
 const mediaTiles = [
   ['01', 'DIRECTION', '/media/hero/green-motion.jpg'],
@@ -14,7 +14,7 @@ const mediaTiles = [
 
 const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
 
-export default function HeroStudy() {
+export default function PortfolioHome() {
   const trackRef = useRef<HTMLElement>(null);
 
   useEffect(() => {

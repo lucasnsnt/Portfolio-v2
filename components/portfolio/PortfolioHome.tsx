@@ -14,8 +14,24 @@ const mediaTiles = [
 
 const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
 
-export default function PortfolioHome() {
+const makeBridgeFrames = (step: number, variant: 'desktop' | 'mobile') =>
+  Array.from({ length: Math.floor(150 / step) + 1 }, (_, index) => {
+    const frameNumber = String(1 + index * step).padStart(4, '0');
+    return `/media/bridge/silhouette-motion/production/${variant}/frame-${frameNumber}.webp`;
+  });
+
+const desktopBridgeFrames = makeBridgeFrames(3, 'desktop');
+const mobileBridgeFrames = makeBridgeFrames(6, 'mobile');
+
+type PortfolioHomeProps = {
+  openingVariant?: 'default' | 'environment-fragments' | 'media-light-type';
+};
+
+export default function PortfolioHome({ openingVariant = 'default' }: PortfolioHomeProps) {
   const trackRef = useRef<HTMLElement>(null);
+  const bridgePortraitRef = useRef<HTMLImageElement>(null);
+  const usesEnvironmentFragments = openingVariant === 'environment-fragments';
+  const usesMediaLightType = openingVariant === 'media-light-type';
 
   useEffect(() => {
     const track = trackRef.current;
@@ -23,6 +39,24 @@ export default function PortfolioHome() {
 
     let frame = 0;
     let previousScroll = window.scrollY;
+    let previousPortraitFrame = -1;
+    const mobileQuery = window.matchMedia('(max-width: 760px)');
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const preloadedFrames: HTMLImageElement[] = [];
+
+    const getBridgeFrames = () =>
+      mobileQuery.matches ? mobileBridgeFrames : desktopBridgeFrames;
+
+    const preloadBridgeFrames = () => {
+      if (reducedMotionQuery.matches) return;
+
+      getBridgeFrames().forEach((source) => {
+        const image = new window.Image();
+        image.decoding = 'async';
+        image.src = source;
+        preloadedFrames.push(image);
+      });
+    };
 
     const update = () => {
       frame = 0;
@@ -30,15 +64,34 @@ export default function PortfolioHome() {
       const travel = Math.max(track.offsetHeight - window.innerHeight, 1);
       const progress = clamp(-bounds.top / travel);
       const bridge = clamp((progress - 0.25) / 0.38);
+      const portrait = clamp((progress - 0.03) / 0.78);
+      const portraitEnter = clamp((progress - 0.015) / 0.08);
+      const portraitExit = 1 - clamp((progress - 0.91) / 0.09);
+      const portraitVisibility = portraitEnter * portraitExit;
+      const bridgeVisibility = 1 - clamp((progress - 0.91) / 0.09);
       const reveal = clamp((progress - 0.48) / 0.34);
       const settle = clamp((progress - 0.76) / 0.24);
       const direction = window.scrollY >= previousScroll ? 1 : -1;
 
       track.style.setProperty('--p', progress.toFixed(4));
       track.style.setProperty('--bridge-p', bridge.toFixed(4));
+      track.style.setProperty('--portrait-p', portrait.toFixed(4));
+      track.style.setProperty('--portrait-v', portraitVisibility.toFixed(4));
+      track.style.setProperty('--bridge-v', bridgeVisibility.toFixed(4));
       track.style.setProperty('--reveal-p', reveal.toFixed(4));
       track.style.setProperty('--settle-p', settle.toFixed(4));
       track.style.setProperty('--scroll-direction', String(direction));
+
+      const portraitFrames = getBridgeFrames();
+      const portraitFrame = reducedMotionQuery.matches
+        ? portraitFrames.length - 1
+        : Math.round(portrait * (portraitFrames.length - 1));
+
+      if (bridgePortraitRef.current && portraitFrame !== previousPortraitFrame) {
+        bridgePortraitRef.current.src = portraitFrames[portraitFrame];
+        previousPortraitFrame = portraitFrame;
+      }
+
       previousScroll = window.scrollY;
     };
 
@@ -47,18 +100,26 @@ export default function PortfolioHome() {
     };
 
     update();
+    const preloadTimer = window.setTimeout(preloadBridgeFrames, 450);
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', requestUpdate);
+    mobileQuery.addEventListener('change', requestUpdate);
+    reducedMotionQuery.addEventListener('change', requestUpdate);
 
     return () => {
+      window.clearTimeout(preloadTimer);
       window.cancelAnimationFrame(frame);
       window.removeEventListener('scroll', requestUpdate);
       window.removeEventListener('resize', requestUpdate);
+      mobileQuery.removeEventListener('change', requestUpdate);
+      reducedMotionQuery.removeEventListener('change', requestUpdate);
     };
   }, []);
 
   return (
-    <main className={styles.page}>
+    <main
+      className={`${styles.page} ${usesEnvironmentFragments ? styles.environmentFragments : ''} ${usesMediaLightType ? styles.mediaLightType : ''}`}
+    >
       <header className={styles.nav}>
         <a href="#inicio">NSNT / LUCAS SANTOS</a>
         <a href="#servicos">SERVIÇOS</a>
@@ -71,13 +132,28 @@ export default function PortfolioHome() {
             <article className={`${styles.chapter} ${styles.opening}`}>
               <div className={styles.mediaStage} aria-hidden="true">
                 <div className={`${styles.mediaPlane} ${styles.mediaPlaneBack}`}>
-                  <img src="/media/hero/green-motion.jpg" alt="" />
+                  <img
+                    src={usesEnvironmentFragments
+                      ? '/media/experiments/environment-fragments-hero/monitor-reflection.jpg'
+                      : '/media/hero/green-motion.jpg'}
+                    alt=""
+                  />
                 </div>
                 <div className={`${styles.mediaPlane} ${styles.mediaPlaneMiddle}`}>
-                  <img src="/media/hero/night-motion.jpg" alt="" />
+                  <img
+                    src={usesEnvironmentFragments
+                      ? '/media/experiments/environment-fragments-hero/screen-light.jpg'
+                      : '/media/hero/night-motion.jpg'}
+                    alt=""
+                  />
                 </div>
                 <div className={`${styles.mediaPlane} ${styles.mediaPlaneFront}`}>
-                  <img src="/media/hero/monochrome-motion.jpg" alt="" />
+                  <img
+                    src={usesEnvironmentFragments
+                      ? '/media/experiments/environment-fragments-hero/keyboard-motion.jpg'
+                      : '/media/hero/monochrome-motion.jpg'}
+                    alt=""
+                  />
                   <span>DESIGN / DEVELOPMENT</span>
                   <strong>01</strong>
                 </div>
@@ -85,11 +161,18 @@ export default function PortfolioHome() {
                 <div className={styles.scanner} />
               </div>
 
+              {usesMediaLightType && (
+                <div className={styles.titleLightField} aria-hidden="true">
+                  <span />
+                  <span />
+                </div>
+              )}
+
               <div className={styles.openingCopy}>
                 <p>SOFTWARE DEVELOPMENT / CREATIVE DIRECTION</p>
                 <h1>
-                  <span>IDEIAS EM</span>
-                  <span>MOVIMENTO</span>
+                  <span data-text="IDEIAS EM">IDEIAS EM</span>
+                  <span data-text="MOVIMENTO">MOVIMENTO</span>
                 </h1>
               </div>
 
@@ -109,7 +192,14 @@ export default function PortfolioHome() {
             </article>
 
             <div className={styles.gap} aria-hidden="true">
-              <div className={styles.bridgeMedia} />
+              <div className={styles.portraitMedia}>
+                <img
+                  ref={bridgePortraitRef}
+                  src="/media/bridge/silhouette-motion/production/mobile/frame-0001.webp"
+                  alt=""
+                  decoding="async"
+                />
+              </div>
               <div className={styles.bridge}>
                 <span className={styles.bridgeTop}>DA IDEIA</span>
                 <span className={styles.bridgeBottom}>À INTERFACE</span>
@@ -148,7 +238,7 @@ export default function PortfolioHome() {
 
               <div className={styles.archiveContent}>
                 <div className={styles.archiveMeta}>
-                  <span>LUCAS SANTOS — SALVADOR, BA</span>
+                  <span>LUCAS SANTOS</span>
                   <span>AVAILABLE FOR SELECTED PROJECTS / 2026</span>
                 </div>
 

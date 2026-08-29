@@ -8,20 +8,6 @@
   background: var(--ink);
 }
 
-.page::after {
-  position: fixed;
-  z-index: 50;
-  inset: 0;
-  opacity: 0.12;
-  pointer-events: none;
-  content: '';
-  background-image:
-    repeating-radial-gradient(circle at 27% 18%, rgb(255 255 255 / 24%) 0 0.45px, transparent 0.8px 3px),
-    repeating-linear-gradient(96deg, transparent 0 9px, rgb(255 255 255 / 5%) 10px 11px);
-  background-size: 6px 6px, 19px 19px;
-  mix-blend-mode: soft-light;
-}
-
 .nav {
   position: fixed;
   z-index: 60;
@@ -47,6 +33,9 @@
 .track {
   --p: 0;
   --bridge-p: 0;
+  --portrait-p: 0;
+  --portrait-v: 0;
+  --bridge-v: 1;
   --reveal-p: 0;
   --settle-p: 0;
   position: relative;
@@ -78,6 +67,7 @@
 }
 
 .opening {
+  z-index: 1;
   width: 130vw;
   isolation: isolate;
   background: #080807;
@@ -181,6 +171,199 @@
   animation-duration: 7s;
 }
 
+.signalSystem .mediaStage { filter: contrast(1.08); }
+
+.signalSystem .mediaStage::before {
+  opacity: 0.7;
+  background:
+    radial-gradient(circle at 72% 36%, rgb(225 214 187 / 12%), transparent 25%),
+    linear-gradient(118deg, transparent 18%, rgb(53 87 77 / 25%) 52%, transparent 76%);
+}
+
+.signalArtwork {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: #ded7c7;
+  background: #090b0a;
+  isolation: isolate;
+}
+
+.signalArtwork::before,
+.signalArtwork::after {
+  position: absolute;
+  inset: -12%;
+  content: '';
+  pointer-events: none;
+}
+
+.signalArtwork::before {
+  z-index: -2;
+  background:
+    radial-gradient(circle at 25% 70%, rgb(31 72 61 / 78%), transparent 34%),
+    radial-gradient(circle at 74% 30%, rgb(174 153 101 / 34%), transparent 28%),
+    linear-gradient(125deg, #07100d 6%, #15241e 43%, #0a0c0b 76%);
+  filter: blur(12px) saturate(0.78);
+  animation: signalFieldDrift 9s ease-in-out infinite alternate;
+}
+
+.signalArtwork::after {
+  z-index: 4;
+  opacity: 0.28;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 3px, rgb(0 0 0 / 42%) 4px),
+    repeating-radial-gradient(circle at 34% 42%, rgb(235 226 203 / 18%) 0 0.6px, transparent 0.9px 4px);
+  mix-blend-mode: multiply;
+}
+
+.signalGlow,
+.signalGrid,
+.signalTrace {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.signalGlow {
+  z-index: -1;
+  top: 15%;
+  left: 42%;
+  width: 42%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgb(229 214 176 / 24%);
+  filter: blur(45px);
+  transform: translate3d(calc(var(--p) * 12%), calc(var(--p) * -8%), 0);
+}
+
+.signalGrid {
+  z-index: 1;
+  inset: 7%;
+  opacity: 0.36;
+  background-image:
+    linear-gradient(rgb(224 218 200 / 17%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(224 218 200 / 17%) 1px, transparent 1px);
+  background-size: 8% 10%;
+  transform: perspective(42rem) rotateX(8deg) rotateZ(-3deg) scale(calc(1.06 + var(--p) * 0.08));
+}
+
+.signalTrace {
+  z-index: 2;
+  top: 50%;
+  left: -8%;
+  width: 116%;
+  height: 1px;
+  background: #ded7c7;
+  box-shadow: 0 -4.5rem 0 rgb(222 215 199 / 30%), 0 5.8rem 0 rgb(222 215 199 / 18%);
+  transform: translateY(calc(-4rem + var(--p) * 8rem)) rotate(-9deg);
+}
+
+.signalTrace::before,
+.signalTrace::after {
+  position: absolute;
+  border: 1px solid rgb(222 215 199 / 60%);
+  border-radius: 50%;
+  content: '';
+}
+
+.signalTrace::before {
+  top: -8rem;
+  left: 48%;
+  width: 13rem;
+  aspect-ratio: 1;
+}
+
+.signalTrace::after {
+  top: -5rem;
+  left: 57%;
+  width: 7rem;
+  aspect-ratio: 1;
+}
+
+.signalLabel {
+  position: absolute;
+  z-index: 5;
+  top: 1rem;
+  left: 1rem;
+  font: 0.52rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.14em;
+}
+
+.signalstructure::before {
+  background: conic-gradient(from 210deg at 55% 46%, #08100e, #2b4037, #827451, #0b0d0c, #08100e);
+  filter: blur(18px) contrast(1.2);
+}
+
+.signalstructure .signalGrid {
+  inset: -8%;
+  opacity: 0.58;
+  background-size: 5% 8%;
+  transform: perspective(28rem) rotateY(-14deg) rotateZ(5deg) scale(1.12);
+}
+
+.signaloutput::before {
+  background:
+    radial-gradient(ellipse at 62% 43%, rgb(225 214 187 / 72%) 0 4%, transparent 18%),
+    radial-gradient(circle at 58% 46%, #30564a 0 13%, #101813 36%, #070807 72%);
+  filter: blur(8px) contrast(1.28);
+}
+
+.signaloutput .signalGrid {
+  opacity: 0.24;
+  background-size: 12% 16%;
+}
+
+.signaloutput .signalTrace {
+  height: 2px;
+  transform: translateY(calc(3rem - var(--p) * 9rem)) rotate(11deg);
+}
+
+.environmentFragments .mediaStage {
+  filter: saturate(calc(0.72 + var(--p) * 0.22)) contrast(1.12) brightness(0.78);
+}
+
+.environmentFragments .mediaStage::before {
+  opacity: 0.78;
+  background:
+    radial-gradient(circle at 67% 34%, rgb(213 198 159 / 19%), transparent 25%),
+    linear-gradient(122deg, rgb(7 13 11 / 42%), rgb(36 67 57 / 22%) 52%, rgb(8 8 7 / 58%));
+}
+
+.environmentFragments .mediaPlane img {
+  opacity: 0.9;
+  filter: grayscale(0.42) saturate(0.48) contrast(1.2) brightness(0.72);
+}
+
+.environmentFragments .mediaPlaneBack img {
+  object-position: 12% 19%;
+  transform: scale(1.46);
+  filter: grayscale(0.32) sepia(0.12) hue-rotate(74deg) saturate(0.58) contrast(1.24) brightness(0.52) blur(2px);
+}
+
+.environmentFragments .mediaPlaneMiddle img {
+  object-position: 58% 52%;
+  transform: scale(1.34) rotate(-2deg);
+  filter: grayscale(0.62) sepia(0.16) hue-rotate(58deg) saturate(0.64) contrast(1.28) brightness(0.58);
+}
+
+.environmentFragments .mediaPlaneFront img {
+  object-position: 56% 54%;
+  transform: scale(1.28);
+  filter: grayscale(0.38) sepia(0.1) hue-rotate(88deg) saturate(0.7) contrast(1.3) brightness(0.68);
+}
+
+.environmentFragments .mediaPlaneFront::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  background:
+    linear-gradient(110deg, rgb(5 9 8 / 66%), transparent 36% 68%, rgb(9 8 7 / 42%)),
+    radial-gradient(circle at 66% 42%, rgb(224 214 185 / 12%), transparent 26%);
+  mix-blend-mode: multiply;
+}
+
 .mediaPlaneFront span,
 .mediaPlaneFront strong {
   position: relative;
@@ -275,6 +458,115 @@
   transform: translateX(calc(var(--p) * 7vw));
 }
 
+.titleLightField {
+  position: absolute;
+  z-index: 7;
+  inset: 17% 26vw 21% 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: calc((1 - var(--bridge-p)) * 0.76);
+  mix-blend-mode: screen;
+  transform: translate3d(calc(var(--p) * -5vw), 0, 0);
+}
+
+.titleLightField span {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.titleLightField span:first-child {
+  top: 24%;
+  left: 10%;
+  width: min(68vw, 64rem);
+  height: clamp(3.5rem, 9vw, 8rem);
+  opacity: 0.48;
+  background: linear-gradient(96deg, transparent 3%, rgb(211 226 213 / 14%) 31%, rgb(247 226 188 / 34%) 53%, transparent 81%);
+  filter: blur(24px);
+  transform: translate3d(calc(-15% + var(--p) * 24%), calc(var(--p) * -0.8rem), 0) rotate(-3deg);
+  animation: titleLightBreathe 7s ease-in-out infinite alternate;
+}
+
+.titleLightField span:last-child {
+  top: 51%;
+  left: 37%;
+  width: min(42vw, 37rem);
+  height: 1px;
+  opacity: 0.62;
+  background: linear-gradient(90deg, transparent, rgb(244 235 216 / 80%) 48%, transparent);
+  box-shadow: 0 0 1.5rem 0.3rem rgb(160 192 170 / 18%);
+  transform: translateX(calc(var(--p) * 14vw)) rotate(-2deg);
+}
+
+.mediaLightType .openingCopy h1 span {
+  position: relative;
+  isolation: isolate;
+}
+
+.mediaLightType .openingCopy {
+  isolation: isolate;
+}
+
+.mediaLightType .openingCopy::before {
+  position: absolute;
+  z-index: -1;
+  inset: -12% -5% -18% -4%;
+  content: '';
+  pointer-events: none;
+  opacity: calc((1 - var(--bridge-p)) * 0.76);
+  background:
+    radial-gradient(ellipse at 28% 41%, rgb(5 7 6 / 72%) 0 20%, rgb(5 7 6 / 43%) 48%, transparent 75%),
+    linear-gradient(94deg, rgb(5 7 6 / 66%) 0, rgb(5 7 6 / 24%) 58%, transparent 88%);
+  filter: blur(15px);
+  transform: translate3d(calc(var(--p) * 2vw), 0, 0);
+}
+
+.mediaLightType .openingCopy h1 span::before,
+.mediaLightType .openingCopy h1 span::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: attr(data-text);
+  pointer-events: none;
+  color: #f4eee3;
+  -webkit-text-stroke: 0 transparent;
+  opacity: calc((1 - var(--bridge-p)) * 0.26);
+  mix-blend-mode: screen;
+}
+
+.mediaLightType .openingCopy h1 span::before {
+  clip-path: inset(17% 0 64% 0);
+  color: rgb(192 215 199 / 86%);
+  filter: blur(0.45px);
+  transform: translate3d(calc(-2px + var(--p) * 5px), 1px, 0);
+}
+
+.mediaLightType .openingCopy h1 span::after {
+  clip-path: inset(65% 0 13% 0);
+  color: rgb(244 222 184 / 82%);
+  filter: blur(0.7px);
+  transform: translate3d(calc(3px - var(--p) * 6px), -1px, 0);
+}
+
+.mediaLightType .openingCopy h1 span:last-child::before,
+.mediaLightType .openingCopy h1 span:last-child::after {
+  color: transparent;
+  -webkit-text-stroke: clamp(1px, 0.12vw, 2px) currentColor;
+}
+
+.mediaLightType .openingCopy h1 span:last-child::before {
+  color: rgb(180 207 189 / 72%);
+}
+
+.mediaLightType .openingCopy h1 span:last-child::after {
+  color: rgb(235 215 179 / 68%);
+}
+
+.mediaLightType .openingCopy h1 span:last-child {
+  -webkit-text-stroke-color: rgb(248 241 228 / 96%);
+  filter: drop-shadow(0 0 0.7rem rgb(3 5 4 / 44%));
+}
+
 .openingInfo {
   position: absolute;
   z-index: 8;
@@ -305,6 +597,7 @@
 
 .gap {
   position: relative;
+  z-index: 3;
   flex: none;
   width: 30vw;
   height: 100%;
@@ -312,24 +605,66 @@
   background: #080807;
 }
 
-.bridgeMedia {
+.portraitMedia {
   position: absolute;
-  inset: -5vw;
-  opacity: calc(var(--bridge-p) * 0.62);
-  background:
-    linear-gradient(90deg, #080807, transparent 32% 68%, #121110),
-    url('/media/hero/galaxy-grain.jpg') center / cover;
-  filter: contrast(1.2);
-  transform: scale(calc(0.8 + var(--bridge-p) * 0.35)) rotate(calc(-8deg + var(--bridge-p) * 8deg));
+  top: -6vh;
+  left: -36vw;
+  width: min(74vw, 106vh);
+  height: 112vh;
+  overflow: hidden;
+}
+
+.portraitMedia {
+  z-index: 8;
+  opacity: calc(var(--portrait-v) * 0.94);
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%),
+    linear-gradient(0deg, transparent 0, #000 8%, #000 94%, transparent 100%);
+  mask-image:
+    linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%),
+    linear-gradient(0deg, transparent 0, #000 8%, #000 94%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  transform: translate3d(calc(-8vw + var(--portrait-p) * 20vw), 0, 0);
   will-change: transform, opacity;
 }
 
-.bridgeMedia::after {
+.portraitMedia img {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.94;
+  transform: translate3d(calc(-3vw + var(--portrait-p) * 8vw), calc(1vh - var(--portrait-p) * 1vh), 0)
+    scale(calc(1.2 - var(--portrait-p) * 0.08));
+  filter: contrast(1.03) brightness(0.96);
+  will-change: transform;
+}
+
+.portraitMedia::before,
+.portraitMedia::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
   content: '';
-  background: repeating-linear-gradient(90deg, transparent 0 7px, rgb(0 0 0 / 25%) 8px 9px);
-  mix-blend-mode: multiply;
+}
+
+.portraitMedia::before {
+  background: linear-gradient(
+    90deg,
+    #080807 0 9%,
+    transparent 32% 68%,
+    #080807 91% 100%
+  );
+}
+
+.portraitMedia::after {
+  background:
+    linear-gradient(0deg, #080807 0, transparent 19% 78%, #080807 100%),
+    repeating-linear-gradient(0deg, transparent 0 6px, rgb(0 0 0 / 10%) 7px 8px);
 }
 
 .bridge {
@@ -340,7 +675,7 @@
   display: flex;
   color: #f4eee3;
   font-family: 'Legacy Display', Impact, sans-serif;
-  font-size: clamp(5rem, 10vw, 10rem);
+  font-size: clamp(4.75rem, min(9.25vw, 15vh), 9.25rem);
   line-height: 0.69;
   letter-spacing: -0.07em;
   text-transform: uppercase;
@@ -350,7 +685,7 @@
 
 .bridge span {
   display: inline-block;
-  opacity: calc(var(--bridge-p) * (2 - var(--bridge-p)));
+  opacity: calc(var(--bridge-p) * (2 - var(--bridge-p)) * var(--bridge-v));
   will-change: transform, opacity;
 }
 
@@ -375,6 +710,7 @@
 }
 
 .archive {
+  z-index: 1;
   width: 100vw;
   isolation: isolate;
   background: #121110;
@@ -682,6 +1018,16 @@
   to { transform: scale(1.2) translate3d(2%, 1.5%, 0); }
 }
 
+@keyframes titleLightBreathe {
+  from { opacity: 0.34; transform: translate3d(-15%, 0, 0) rotate(-3deg) scaleX(0.94); }
+  to { opacity: 0.52; transform: translate3d(-10%, -4%, 0) rotate(-2deg) scaleX(1.04); }
+}
+
+@keyframes signalFieldDrift {
+  from { transform: translate3d(-2%, -1%, 0) scale(1.12) rotate(-1deg); }
+  to { transform: translate3d(3%, 2%, 0) scale(1.2) rotate(1.5deg); }
+}
+
 @media (max-width: 760px) {
   .nav {
     min-height: 3.75rem;
@@ -700,6 +1046,17 @@
   }
 
   .openingCopy h1 span:last-child { align-self: flex-start; }
+  .titleLightField { inset: 20% 25vw 25% 0; }
+  .titleLightField span:first-child { left: 0; width: 92vw; filter: blur(18px); }
+  .titleLightField span:last-child { left: 12%; width: 72vw; }
+  .mediaLightType .openingCopy::before {
+    inset: -10% -3% -16% -6%;
+    opacity: calc((1 - var(--bridge-p)) * 0.68);
+    background: linear-gradient(92deg, rgb(4 6 5 / 68%), rgb(4 6 5 / 34%) 72%, transparent);
+    filter: blur(12px);
+  }
+  .mediaLightType .openingCopy h1 span::before,
+  .mediaLightType .openingCopy h1 span::after { opacity: calc((1 - var(--bridge-p)) * 0.18); }
   .mediaPlaneBack { inset: -8% 1% 32% 30%; }
   .mediaPlaneMiddle { inset: 29% 22% -10% 1%; }
   .mediaPlaneFront { inset: 20% 3% 22% 42%; }
@@ -712,7 +1069,20 @@
   .openingInfo p { font-size: 0.95rem; }
   .openingFooter { right: 32vw; gap: 1rem; }
   .openingFooter span:nth-child(2) { display: none; }
-  .bridge { font-size: clamp(4.5rem, 22vw, 8rem); }
+  .bridge {
+    font-size: clamp(4.15rem, min(20.5vw, 10vh), 7.4rem);
+  }
+  .portraitMedia {
+    top: -4vh;
+    left: -52vw;
+    width: 104vw;
+    height: 108vh;
+    transform: translate3d(calc(-7vw + var(--portrait-p) * 18vw), 0, 0);
+  }
+  .portraitMedia img {
+    transform: translate3d(calc(-4vw + var(--portrait-p) * 9vw), 0, 0)
+      scale(calc(1.2 - var(--portrait-p) * 0.08));
+  }
   .gapIndex { display: none; }
 
   .mediaTile {
@@ -763,6 +1133,17 @@
   .opening,
   .archive { width: 100%; min-height: 100svh; }
   .gap { width: 100%; height: 40svh; }
+  .portraitMedia {
+    top: -5vh;
+    left: 50%;
+    width: min(92vw, 64vh);
+    height: 50vh;
+    opacity: 0.9;
+    transform: translateX(-50%);
+  }
+  .portraitMedia img {
+    transform: scale(0.94);
+  }
   .bridge { transform: translate(-50%, -50%); }
   .bridge span,
   .openingCopy,
@@ -777,6 +1158,12 @@
   .titleMask h2 span:last-child { transform: none; }
   .carouselRail,
   .carouselRailReverse,
-  .mediaPlane img { animation: none; }
+  .mediaPlane img,
+  .signalArtwork::before { animation: none; }
+  .titleLightField { opacity: 0.34; transform: none; }
+  .titleLightField span { animation: none !important; transform: none !important; }
+  .mediaLightType .openingCopy::before { opacity: 0.58; transform: none; }
+  .mediaLightType .openingCopy h1 span::before,
+  .mediaLightType .openingCopy h1 span::after { display: none; }
   .progress { display: none; }
 }

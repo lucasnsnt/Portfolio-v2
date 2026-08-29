@@ -12,16 +12,15 @@ const waitForWindow = () =>
         window.addEventListener('load', () => resolve(), { once: true }),
       );
 
-const phases = ['PREPARANDO', 'TIPOGRAFIA', 'INTERFACE', 'PRONTO'];
-
 export default function IntroLoader() {
-  const [phase, setPhase] = useState(0);
+  const [progress, setProgress] = useState(0);
   const [exiting, setExiting] = useState(false);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     let active = true;
     const timers: number[] = [];
+    let progressFrame = 0;
     const previousOverflow = document.body.style.overflow;
     const reducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
@@ -34,10 +33,22 @@ export default function IntroLoader() {
       timers.push(timer);
     };
 
-    if (!reducedMotion) {
-      later(() => setPhase(1), 320);
-      later(() => setPhase(2), 760);
-    }
+    const startedAt = performance.now();
+
+    const animateProgress = (now: number) => {
+      if (!active) return;
+      const elapsed = now - startedAt;
+      const nextProgress = reducedMotion
+        ? 100
+        : Math.min(92, Math.round((elapsed / 1050) * 92));
+
+      setProgress(nextProgress);
+      if (nextProgress < 92) {
+        progressFrame = window.requestAnimationFrame(animateProgress);
+      }
+    };
+
+    progressFrame = window.requestAnimationFrame(animateProgress);
 
     const run = async () => {
       const fontsReady = document.fonts?.ready ?? Promise.resolve();
@@ -46,18 +57,20 @@ export default function IntroLoader() {
         sleep(2200),
       ]);
 
-      await Promise.all([essentialReady, sleep(reducedMotion ? 180 : 1180)]);
+      await Promise.all([essentialReady, sleep(reducedMotion ? 120 : 1120)]);
       if (!active) return;
 
-      setPhase(3);
-      later(() => setExiting(true), reducedMotion ? 40 : 150);
-      later(() => setVisible(false), reducedMotion ? 260 : 900);
+      window.cancelAnimationFrame(progressFrame);
+      setProgress(100);
+      later(() => setExiting(true), reducedMotion ? 20 : 170);
+      later(() => setVisible(false), reducedMotion ? 240 : 1120);
     };
 
     void run();
 
     return () => {
       active = false;
+      window.cancelAnimationFrame(progressFrame);
       timers.forEach(window.clearTimeout);
       document.body.style.overflow = previousOverflow;
     };
@@ -101,9 +114,8 @@ export default function IntroLoader() {
         </defs>
       </svg>
 
-      <div className="intro-meta intro-meta-top" aria-hidden="true">
-        <span>NSNT / PORTFOLIO 02</span>
-        <span>INITIAL SEQUENCE</span>
+      <div className="intro-counter" aria-hidden="true">
+        {String(progress).padStart(3, '0')}
       </div>
 
       <div className="intro-echo" aria-hidden="true">
@@ -117,16 +129,6 @@ export default function IntroLoader() {
         </h1>
       </div>
 
-      <div className="intro-meta intro-meta-bottom">
-        <span className="intro-status" key={phases[phase]}>
-          {phases[phase]}
-        </span>
-        <span aria-hidden="true">SALVADOR — BA</span>
-      </div>
-
-      <div className="intro-rule" aria-hidden="true">
-        <span />
-      </div>
     </section>
   );
 }

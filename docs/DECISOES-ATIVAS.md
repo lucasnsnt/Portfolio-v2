@@ -36,11 +36,14 @@ Hero
 
 - Cinco motivos: matéria em deslocamento, revelação por definição, capítulos, texto por recorte e resposta material.
 - Scroll vertical como base; horizontal apenas quando narrativamente justificado.
-- A animação antiga foi escolhida como base do loading: eco cursivo, nome distorcido e revelação em sequência.
+- O loading combina a contenção tipográfica e o contador observados em Aristide Benoist com a revelação vertical da página observada no Raw Cereal. Ele preserva apenas o eco cursivo, `LUCAS SANTOS` e o contador sobre fundo liso; a composição inteira sai para cima como uma única superfície.
 - Hero, projetos e Lab concentram intensidade.
 - Mobile recebe uma versão própria e mais leve.
 - O deslocamento horizontal foi aprovado como mecânica real da abertura.
 - Planos em profundidade, ponte tipográfica, faixas, máscaras e entradas defasadas formam a base de movimento atual.
+- A ponte `DA IDEIA À INTERFACE` usa somente a sequência pessoal como camada temporária, sem a antiga mídia abstrata: a silhueta começa a entrar pela lateral assim que o deslocamento horizontal se inicia, avança conforme os frames respondem ao scroll e se dissolve junto da frase apenas quando a segunda hero ocupa completamente a viewport. O enquadramento visual fica restrito ao personagem e as bordas do frame se fundem ao fundo do site, sem revelar seu quadrado preto. No mobile a sequência é reduzida; com movimento reduzido, permanece um frame estático apenas na ponte.
+- As três mídias da primeira hero se desprendem da composição durante a ponte, atravessam por trás da silhueta em tempos diferentes e se encaixam nos três primeiros módulos da faixa superior da segunda hero. A faixa permanece parada até o encaixe terminar e então retoma o movimento ambiente. No mobile, a transferência usa somente duas mídias; com movimento reduzido, os cartões intermediários são removidos e as mídias permanecem em seus estados estáticos de origem e destino.
+- A segunda hero completa o deslocamento horizontal antes do fim do trecho fixo e permanece integralmente enquadrada, sem transformar o título, por um estado prolongado. Depois desse trecho, o scroll vertical segue normalmente para serviços enquanto, como movimento secundário da saída, `SOFTWARE` desce e `ENGINEER` sobe até ocuparem a mesma altura central. A resposta tipográfica é suavizada entre atualizações do scroll. No mobile, as palavras também convergem, com redução de escala para preservar a leitura; com movimento reduzido, o título permanece estático.
 - A animação não deve permanecer parada quando o usuário não rola: as mídias podem ter deriva contínua discreta, preservando legibilidade e desempenho.
 - Imagens pessoais de referência podem ser usadas como matéria visual; a curadoria definitiva ainda depende da fotografia final.
 
@@ -50,6 +53,7 @@ Hero
 - `components/portfolio/` concentra a experiência principal aprovada.
 - `/experiments/raw-cereal-hero` é somente uma rota temporária de compatibilidade e não define a arquitetura do produto.
 - A seção inicial de serviços apresenta landing pages, sites institucionais e experiências sob medida; o texto ainda pode ser refinado sem alterar a estrutura aprovada.
+- Os subtextos da abertura foram aprovados como uma progressão: a primeira cena apresenta o propósito do trabalho; a segunda detalha os tipos de entrega e prepara a entrada da seção de serviços.
 - O CTA final aponta provisoriamente para o Instagram até a URL profissional do WhatsApp ser definida.
 
 ## Desempenho

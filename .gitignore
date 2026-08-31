@@ -36,3 +36,9 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# raw and intermediate silhouette renders stay local
+/public/media/bridge/silhouette-motion/*
+!/public/media/bridge/silhouette-motion/README.md
+!/public/media/bridge/silhouette-motion/production/
+!/public/media/bridge/silhouette-motion/production/**

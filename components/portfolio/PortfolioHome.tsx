@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import styles from './portfolio-home.module.css';
+import ServicesSection from './ServicesSection';
 
 const terminalProductionImage =
   '/media/projects/unemployment-killer/vps-spring-production.png';
@@ -356,39 +357,7 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
         </div>
       </section>
 
-      <section className={styles.after} id="servicos">
-        <div className={styles.afterIntro}>
-          <p>COMO POSSO AJUDAR / 01</p>
-          <h2>Da primeira ideia ao site no ar.</h2>
-          <p className={styles.afterLead}>
-            Projetos digitais construídos de ponta a ponta, com clareza técnica
-            e uma direção visual que não parece saída de um template.
-          </p>
-        </div>
-
-        <div className={styles.serviceList}>
-          <article>
-            <span>01</span>
-            <h3>Landing pages</h3>
-            <p>Páginas focadas em apresentar, convencer e gerar contato.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Sites institucionais</h3>
-            <p>Presença digital profissional com estrutura feita para o negócio.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Experiências sob medida</h3>
-            <p>Interfaces, interações e sistemas adaptados a cada projeto.</p>
-          </article>
-        </div>
-
-        <div className={styles.afterFooter} id="contato">
-          <span>PRECISA DE UM SITE? VAMOS CONVERSAR.</span>
-          <a href="https://instagram.com/nsnt">INICIAR CONVERSA ↗</a>
-        </div>
-      </section>
+      <ServicesSection />
     </main>
   );
 }

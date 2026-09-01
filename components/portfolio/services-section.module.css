@@ -94,37 +94,27 @@
 
 .portraitArtifact {
   position: absolute;
-  z-index: 0;
-  top: 2%;
-  right: clamp(-7rem, -4vw, -2rem);
-  width: clamp(25rem, 42vw, 47rem);
-  height: 82%;
+  z-index: -1;
+  top: -5%;
+  right: -5%;
+  width: clamp(25rem, 50vw, 55rem);
+  height: 110%;
   pointer-events: none;
-  opacity: clamp(0, calc(var(--entry-p) * 3), 1);
+  opacity: clamp(0, calc(var(--intro-p) * 0.8), 0.8);
   transform: translate3d(
-    calc((1 - var(--entry-p)) * 16vw),
-    calc((0.5 - var(--entry-wave)) * 2.5rem),
+    calc((1 - var(--intro-p)) * 5vw),
+    calc((1 - var(--intro-p)) * 2rem),
     0
-  ) rotate(calc((1 - var(--entry-p)) * 3deg));
-  clip-path: inset(
-    calc((1 - var(--entry-p)) * 48%)
-    0
-    calc((1 - var(--entry-p)) * 6%)
-    calc((1 - var(--entry-p)) * 54%)
   );
-  will-change: clip-path, opacity, transform;
+  filter: grayscale(1) contrast(3) brightness(0.4);
+  mix-blend-mode: hard-light;
+  mask-image: radial-gradient(circle at 70% 30%, #000 10%, transparent 60%);
+  -webkit-mask-image: radial-gradient(circle at 70% 30%, #000 10%, transparent 60%);
+  will-change: opacity, transform;
 }
 
 .portraitField {
-  position: absolute;
-  z-index: -2;
-  inset: 15% 7% 7% 12%;
-  border-radius: 48% 42% 8% 12%;
-  background:
-    radial-gradient(circle at 54% 32%, rgb(186 118 72 / 42%), transparent 38%),
-    linear-gradient(145deg, rgb(231 202 161 / 16%), rgb(93 47 25 / 38%));
-  filter: blur(clamp(1.5rem, 4vw, 4rem));
-  transform: scale(calc(0.8 + var(--entry-wave) * 0.26));
+  display: none;
 }
 
 .portraitImage,
@@ -134,38 +124,30 @@
   width: 100%;
   height: auto;
   display: block;
-  transform-origin: 52% 100%;
 }
 
 .portraitImage {
   z-index: 1;
-  filter: grayscale(1) sepia(0.72) saturate(0.82) contrast(1.48) brightness(0.82);
-  opacity: 0.88;
-  mix-blend-mode: luminosity;
-  transform: scale(calc(0.94 + var(--entry-wave) * 0.035));
+  filter: contrast(30) sepia(1) hue-rotate(10deg) brightness(0.6);
+  opacity: 0.4;
+  mix-blend-mode: color-burn;
 }
 
 .portraitGhost {
   z-index: 0;
-  filter: grayscale(1) sepia(1) saturate(2.4) contrast(2.2) brightness(0.56);
-  opacity: calc(0.08 + var(--entry-wave) * 0.22);
-  transform: translate3d(
-    calc(-1.2rem - var(--entry-wave) * 1.2rem),
-    calc(0.6rem + var(--entry-wave) * 0.8rem),
-    0
-  ) scale(0.96);
+  filter: grayscale(1) contrast(20) invert(1);
+  opacity: 0.15;
+  transform: translate3d(-1rem, 1rem, 0);
 }
 
 .portraitHalftone {
   position: absolute;
   z-index: 2;
-  inset: 8% 2% 0 6%;
-  background-image: radial-gradient(circle, rgb(242 223 193 / 34%) 0 0.8px, transparent 1px);
-  background-size: 5px 5px;
-  opacity: calc(0.08 + var(--entry-wave) * 0.26);
-  mix-blend-mode: soft-light;
-  mask-image: linear-gradient(to bottom, transparent 4%, #000 28%, #000 82%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 4%, #000 28%, #000 82%, transparent 100%);
+  inset: 0;
+  background-image: radial-gradient(circle, #fff 1px, transparent 1.5px);
+  background-size: 8px 8px;
+  mix-blend-mode: overlay;
+  opacity: 0.6;
 }
 
 .echo {
@@ -394,7 +376,7 @@
     right: -8.5rem;
     width: clamp(22rem, 98vw, 34rem);
     height: 66%;
-    opacity: clamp(0, calc(var(--entry-p) * 2.6), 0.72);
+    opacity: clamp(0, calc(var(--intro-p) * 0.8), 0.72);
   }
 
   .portraitImage { opacity: 0.7; }
@@ -436,124 +418,3 @@
   .handoff a::after { transition: none; }
 }
 
-/* Technical Artifact (Construir) */
-.technicalArtifact {
-  position: absolute;
-  z-index: 0;
-  top: 10%;
-  left: clamp(-4rem, -10vw, -12rem);
-  width: clamp(24rem, 38vw, 44rem);
-  height: 80%;
-  opacity: clamp(0, calc((var(--entry-p) - 0.1) * 3), 0.85);
-  transform: translate3d(
-    calc((1 - var(--entry-p)) * -4rem),
-    calc((var(--entry-wave) - 0.5) * -2rem),
-    0
-  );
-  will-change: opacity, transform;
-}
-
-.technicalGrid {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(to right, rgb(242 223 193 / 8%) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(242 223 193 / 8%) 1px, transparent 1px);
-  background-size: 2rem 2rem;
-  mask-image: radial-gradient(circle at 40% 50%, #000 30%, transparent 70%);
-  -webkit-mask-image: radial-gradient(circle at 40% 50%, #000 30%, transparent 70%);
-  transform: scale(calc(1 + var(--entry-wave) * 0.1));
-}
-
-.technicalFragment {
-  position: absolute;
-  top: 20%;
-  left: 15%;
-  width: 70%;
-  height: auto;
-  filter: grayscale(1) sepia(0.2) contrast(1.5) brightness(0.7);
-  mix-blend-mode: hard-light;
-  clip-path: polygon(
-    0 0, 
-    calc(100% - var(--entry-wave) * 10%) 0, 
-    100% calc(100% - var(--entry-wave) * 10%), 
-    0 100%
-  );
-  transform: translateY(calc(var(--entry-wave) * 2rem));
-}
-
-.technicalAccent {
-  position: absolute;
-  bottom: 10%;
-  left: 5%;
-  width: 20%;
-  height: 2px;
-  background: var(--entry-bright);
-  transform: scaleX(var(--entry-p));
-  transform-origin: left;
-  opacity: 0.6;
-}
-
-/* Evolution Artifact (Evoluir) */
-.evolutionArtifact {
-  position: absolute;
-  z-index: 0;
-  top: 15%;
-  right: clamp(2rem, 10vw, 15rem);
-  width: clamp(20rem, 30vw, 36rem);
-  aspect-ratio: 1;
-  opacity: clamp(0, calc((var(--entry-p) - 0.2) * 2.5), 0.9);
-  transform: translateY(calc((1 - var(--entry-p)) * 6rem));
-  will-change: opacity, transform;
-}
-
-.evolutionShapeOne,
-.evolutionShapeTwo {
-  position: absolute;
-  inset: 0;
-  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-  background: radial-gradient(circle at 30% 30%, rgb(93 47 25 / 40%), transparent 60%);
-  filter: blur(1rem);
-  mix-blend-mode: screen;
-  transform: rotate(calc(var(--entry-p) * 90deg)) scale(calc(0.8 + var(--entry-wave) * 0.4));
-  transition: transform 0.1s linear;
-}
-
-.evolutionShapeTwo {
-  border-radius: 60% 40% 30% 70% / 50% 40% 50% 60%;
-  background: radial-gradient(circle at 70% 70%, rgb(186 118 72 / 30%), transparent 60%);
-  transform: rotate(calc(var(--entry-p) * -60deg)) scale(calc(1.2 - var(--entry-wave) * 0.2));
-}
-
-.evolutionCore {
-  position: absolute;
-  inset: 25%;
-  border-radius: 50%;
-  background: var(--entry-bright);
-  opacity: calc(0.05 + var(--entry-wave) * 0.15);
-  filter: blur(2rem);
-  transform: scale(calc(1 + var(--entry-wave) * 0.5));
-}
-
-@media (max-width: 760px) {
-  .technicalArtifact, .evolutionArtifact {
-    display: none; /* Simplify on mobile for now */
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .technicalArtifact, .evolutionArtifact {
-    transform: none;
-    opacity: 0.5;
-  }
-  .evolutionShapeOne, .evolutionShapeTwo {
-    transform: none;
-  }
-  .technicalGrid {
-    transform: none;
-  }
-  .technicalFragment {
-    transform: none;
-    clip-path: none;
-  }
-}

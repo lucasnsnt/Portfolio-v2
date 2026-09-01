@@ -109,6 +109,20 @@ export default function ServicesSection() {
       ref={sectionRef}
     >
       <header className={styles.introduction} data-work-intro>
+        <div className={styles.portraitArtifact} aria-hidden="true">
+                  <div className={styles.portraitField} />
+                  <img
+                    className={styles.portraitGhost}
+                    src="/media/portfolio/cutouts/lucas-hoodie-silhouette-v1.png"
+                    alt=""
+                  />
+                  <img
+                    className={styles.portraitImage}
+                    src="/media/portfolio/cutouts/lucas-hoodie-silhouette-v1.png"
+                    alt=""
+                  />
+                  <div className={styles.portraitHalftone} />
+                </div>
         <h2 id="work-entry-title">
           Onde eu
           <span>entro</span>
@@ -131,42 +145,8 @@ export default function ServicesSection() {
             data-work-entry
           >
             <div className={styles.entryStage}>
-              {momentIndex === 1 && (
-                <div className={styles.technicalArtifact} aria-hidden="true">
-                  <div className={styles.technicalGrid} />
-                  <img
-                    className={styles.technicalFragment}
-                    src="/media/portfolio/fragments/code-fragment-v1.jpg"
-                    alt=""
-                  />
-                  <div className={styles.technicalAccent} />
-                </div>
-              )}
 
-              {momentIndex === 2 && (
-                <div className={styles.evolutionArtifact} aria-hidden="true">
-                  <div className={styles.evolutionShapeOne} />
-                  <div className={styles.evolutionShapeTwo} />
-                  <div className={styles.evolutionCore} />
-                </div>
-              )}
-
-              {momentIndex === 0 && (
-                <div className={styles.portraitArtifact} aria-hidden="true">
-                  <div className={styles.portraitField} />
-                  <img
-                    className={styles.portraitGhost}
-                    src="/media/portfolio/cutouts/lucas-hoodie-silhouette-v1.png"
-                    alt=""
-                  />
-                  <img
-                    className={styles.portraitImage}
-                    src="/media/portfolio/cutouts/lucas-hoodie-silhouette-v1.png"
-                    alt=""
-                  />
-                  <div className={styles.portraitHalftone} />
-                </div>
-              )}
+              
 
               <p className={styles.echo} aria-hidden="true">{moment.echo}</p>
 

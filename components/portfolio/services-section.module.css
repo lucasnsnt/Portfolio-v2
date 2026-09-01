@@ -1,0 +1,559 @@
+.section {
+  --intro-p: 0;
+  --entry-bg: #100d0a;
+  --entry-text: #e0c5a0;
+  --entry-bright: #f2dfc1;
+  --entry-muted: rgb(224 197 160 / 48%);
+  --entry-line: rgb(224 197 160 / 18%);
+  --entry-gutter: clamp(1rem, 3vw, 3rem);
+  --entry-gap: clamp(0.75rem, 1.4vw, 1.25rem);
+  --entry-ease: cubic-bezier(0.055, 0.72, 0.165, 1);
+  position: relative;
+  z-index: 2;
+  padding-inline: var(--entry-gutter);
+  overflow: clip;
+  color: var(--entry-text);
+  background: var(--entry-bg);
+}
+
+.introduction {
+  min-height: 100svh;
+  padding-block: clamp(6rem, 10vw, 9rem) clamp(4rem, 8vw, 7rem);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto 1fr auto;
+  gap: var(--entry-gap);
+  border-bottom: 1px solid var(--entry-line);
+}
+
+.introduction h2 {
+  grid-column: 1 / -1;
+  align-self: center;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  color: var(--entry-bright);
+  font-family: 'Legacy Display', Impact, sans-serif;
+  font-size: clamp(7rem, 18vw, 18rem);
+  font-weight: 900;
+  line-height: 0.69;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  transform: translate3d(calc(var(--intro-p) * -5vw), 0, 0);
+  will-change: transform;
+}
+
+.introduction h2 span {
+  align-self: flex-end;
+  padding-right: 0.09em;
+  color: transparent;
+  -webkit-text-stroke: clamp(1px, 0.12vw, 2px) var(--entry-bright);
+  transform: translate3d(calc(var(--intro-p) * 10vw), 0, 0);
+}
+
+.introCopy {
+  grid-column: 7 / span 5;
+  display: block;
+  align-items: end;
+  opacity: calc(0.45 + var(--intro-p) * 0.55);
+  transform: translate3d(0, calc((1 - var(--intro-p)) * 2rem), 0);
+}
+
+.introCopy p {
+  max-width: 39rem;
+  margin: 0;
+  color: var(--entry-bright);
+  font: clamp(1.15rem, 1.8vw, 1.6rem)/1.22 Georgia, serif;
+}
+
+.entries { border-bottom: 1px solid var(--entry-line); }
+
+.entry {
+  --entry-p: 0;
+  --entry-wave: 0;
+  position: relative;
+  min-height: 155svh;
+  border-bottom: 1px solid var(--entry-line);
+}
+
+.entryStage {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  padding-block: clamp(1.2rem, 2vw, 2rem) clamp(3rem, 6vw, 6rem);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: 1fr auto;
+  gap: var(--entry-gap);
+  overflow: hidden;
+  background: var(--entry-bg);
+  isolation: isolate;
+}
+
+.entry:last-child { border-bottom: 0; }
+
+.portraitArtifact {
+  position: absolute;
+  z-index: 0;
+  top: 2%;
+  right: clamp(-7rem, -4vw, -2rem);
+  width: clamp(25rem, 42vw, 47rem);
+  height: 82%;
+  pointer-events: none;
+  opacity: clamp(0, calc(var(--entry-p) * 3), 1);
+  transform: translate3d(
+    calc((1 - var(--entry-p)) * 16vw),
+    calc((0.5 - var(--entry-wave)) * 2.5rem),
+    0
+  ) rotate(calc((1 - var(--entry-p)) * 3deg));
+  clip-path: inset(
+    calc((1 - var(--entry-p)) * 48%)
+    0
+    calc((1 - var(--entry-p)) * 6%)
+    calc((1 - var(--entry-p)) * 54%)
+  );
+  will-change: clip-path, opacity, transform;
+}
+
+.portraitField {
+  position: absolute;
+  z-index: -2;
+  inset: 15% 7% 7% 12%;
+  border-radius: 48% 42% 8% 12%;
+  background:
+    radial-gradient(circle at 54% 32%, rgb(186 118 72 / 42%), transparent 38%),
+    linear-gradient(145deg, rgb(231 202 161 / 16%), rgb(93 47 25 / 38%));
+  filter: blur(clamp(1.5rem, 4vw, 4rem));
+  transform: scale(calc(0.8 + var(--entry-wave) * 0.26));
+}
+
+.portraitImage,
+.portraitGhost {
+  position: absolute;
+  inset: auto 0 0 auto;
+  width: 100%;
+  height: auto;
+  display: block;
+  transform-origin: 52% 100%;
+}
+
+.portraitImage {
+  z-index: 1;
+  filter: grayscale(1) sepia(0.72) saturate(0.82) contrast(1.48) brightness(0.82);
+  opacity: 0.88;
+  mix-blend-mode: luminosity;
+  transform: scale(calc(0.94 + var(--entry-wave) * 0.035));
+}
+
+.portraitGhost {
+  z-index: 0;
+  filter: grayscale(1) sepia(1) saturate(2.4) contrast(2.2) brightness(0.56);
+  opacity: calc(0.08 + var(--entry-wave) * 0.22);
+  transform: translate3d(
+    calc(-1.2rem - var(--entry-wave) * 1.2rem),
+    calc(0.6rem + var(--entry-wave) * 0.8rem),
+    0
+  ) scale(0.96);
+}
+
+.portraitHalftone {
+  position: absolute;
+  z-index: 2;
+  inset: 8% 2% 0 6%;
+  background-image: radial-gradient(circle, rgb(242 223 193 / 34%) 0 0.8px, transparent 1px);
+  background-size: 5px 5px;
+  opacity: calc(0.08 + var(--entry-wave) * 0.26);
+  mix-blend-mode: soft-light;
+  mask-image: linear-gradient(to bottom, transparent 4%, #000 28%, #000 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 4%, #000 28%, #000 82%, transparent 100%);
+}
+
+.echo {
+  position: absolute;
+  z-index: 1;
+  top: 15%;
+  left: -0.04em;
+  width: max-content;
+  margin: 0;
+  color: transparent;
+  font-family: 'Legacy Display', Impact, sans-serif;
+  font-size: clamp(5rem, 12vw, 12rem);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+  -webkit-text-stroke: 1px rgb(242 223 193 / 10%);
+  opacity: calc(0.2 + var(--entry-wave) * 0.8);
+  transform: translate3d(calc(-8vw + var(--entry-p) * 16vw), 0, 0);
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+.verbMask {
+  position: relative;
+  z-index: 3;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  align-self: center;
+  overflow: hidden;
+}
+
+.verbMask h3 {
+  margin: 0;
+  color: var(--entry-bright);
+  font-family: 'Legacy Display', Impact, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: clamp(6rem, 14vw, 14rem);
+  font-weight: 900;
+  line-height: 0.72;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.verbMask h3 span {
+  --char-p: 0;
+  display: inline-block;
+  opacity: var(--char-p);
+  transform: translate3d(
+    calc((1 - var(--char-p)) * -2.5vw + var(--entry-wave) * 0.65vw),
+    calc((1 - var(--char-p)) * 72%),
+    0
+  );
+  will-change: transform, opacity;
+}
+
+.verbMask h3 span:nth-child(even) {
+  transform: translate3d(
+    calc((1 - var(--char-p)) * 2.5vw - var(--entry-wave) * 0.45vw),
+    calc((1 - var(--char-p)) * -72%),
+    0
+  );
+}
+
+.entry:nth-child(even) .verbMask h3 span {
+  color: transparent;
+  -webkit-text-stroke: clamp(1px, 0.11vw, 2px) var(--entry-bright);
+}
+
+.entryDetails {
+  position: relative;
+  z-index: 4;
+  grid-column: 4 / -1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(15rem, 1fr);
+  gap: clamp(3rem, 8vw, 10rem);
+  align-items: end;
+  opacity: clamp(0, calc((var(--entry-p) - 0.4) * 3.4), 1);
+  transform: translate3d(0, calc((1 - var(--entry-p)) * 2.5rem), 0);
+  will-change: transform, opacity;
+}
+
+.entryDetails > p {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--entry-bright);
+  font: clamp(1.45rem, 2.6vw, 2.4rem)/1.12 Georgia, serif;
+}
+
+.deliveryBlock { display: grid; }
+
+.deliveryBlock ul {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  list-style: none;
+  border-top: 1px solid var(--entry-line);
+}
+
+.deliveryBlock li {
+  padding-block: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--entry-line);
+  color: rgb(242 223 193 / 78%);
+  font: clamp(1rem, 1.5vw, 1.35rem)/1.05 'Legacy Display', Impact, sans-serif;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.deliveryBlock li::after { color: var(--entry-muted); content: '↗'; }
+
+.handoff {
+  min-height: 72svh;
+  padding-block: clamp(5rem, 9vw, 9rem) clamp(2rem, 4vw, 4rem);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--entry-gap);
+  align-items: end;
+}
+
+.handoff > div { grid-column: 1 / span 8; }
+.handoff p {
+  max-width: 10ch;
+  margin: 1.2rem 0 0;
+  color: var(--entry-bright);
+  font-family: 'Legacy Display', Impact, sans-serif;
+  font-size: clamp(4rem, 9vw, 9rem);
+  font-weight: 900;
+  line-height: 0.75;
+  letter-spacing: -0.065em;
+  text-transform: uppercase;
+}
+
+.handoff a {
+  position: relative;
+  grid-column: 9 / -1;
+  padding-block: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--entry-line);
+  color: var(--entry-bright);
+  text-decoration: none;
+  transition: padding-inline 700ms var(--entry-ease);
+}
+
+.handoff a span {
+  font: clamp(1rem, 1.4vw, 1.3rem)/1 'Legacy Display', Impact, sans-serif;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.handoff a::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  content: '';
+  background: var(--entry-bright);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 800ms var(--entry-ease);
+}
+
+.handoff a:hover { padding-inline: 0.6rem; }
+.handoff a:hover::after { transform: scaleX(1); transform-origin: left; }
+.handoff a strong { font: 200 clamp(2rem, 4vw, 4rem)/0.5 sans-serif; }
+
+.handoff a:focus-visible {
+  outline: 1px solid var(--entry-bright);
+  outline-offset: 0.4rem;
+}
+
+@media (max-width: 760px) {
+  .section { --entry-gutter: 1rem; }
+
+  .introduction {
+    min-height: 88svh;
+    padding-block: 5.5rem 2.5rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .introduction h2 {
+    font-size: clamp(5.4rem, 25vw, 9rem);
+    line-height: 0.76;
+    letter-spacing: -0.015em;
+  }
+
+  .introCopy { grid-column: 1 / -1; }
+
+  .entry {
+    min-height: 132svh;
+  }
+
+  .entryStage {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .verbMask h3 {
+    font-size: clamp(3.6rem, 16vw, 5.75rem);
+    line-height: 0.82;
+  }
+
+  .entryDetails {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .echo {
+    top: 22%;
+    font-size: clamp(3.4rem, 16vw, 5.5rem);
+  }
+
+  .entryDetails > p { max-width: 30rem; }
+
+  .portraitArtifact {
+    top: 10%;
+    right: -8.5rem;
+    width: clamp(22rem, 98vw, 34rem);
+    height: 66%;
+    opacity: clamp(0, calc(var(--entry-p) * 2.6), 0.72);
+  }
+
+  .portraitImage { opacity: 0.7; }
+
+  .handoff {
+    min-height: 68svh;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-content: end;
+  }
+
+  .handoff > div,
+  .handoff a { grid-column: 1 / -1; }
+
+  .handoff a { margin-top: 3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry { min-height: auto; }
+  .entryStage { position: relative; }
+  .verbMask h3 span { opacity: 1; transform: none; }
+  .entryDetails { opacity: 1; transform: none; }
+  .introduction h2,
+  .introduction h2 span,
+  .introCopy { opacity: 1; transform: none; }
+
+  .portraitArtifact {
+    opacity: 0.62;
+    transform: none;
+    clip-path: inset(0);
+  }
+
+  .portraitImage,
+  .portraitGhost,
+  .portraitField { transform: none; }
+
+  .portraitGhost { opacity: 0.12; }
+
+  .handoff a,
+  .handoff a::after { transition: none; }
+}
+
+/* Technical Artifact (Construir) */
+.technicalArtifact {
+  position: absolute;
+  z-index: 0;
+  top: 10%;
+  left: clamp(-4rem, -10vw, -12rem);
+  width: clamp(24rem, 38vw, 44rem);
+  height: 80%;
+  opacity: clamp(0, calc((var(--entry-p) - 0.1) * 3), 0.85);
+  transform: translate3d(
+    calc((1 - var(--entry-p)) * -4rem),
+    calc((var(--entry-wave) - 0.5) * -2rem),
+    0
+  );
+  will-change: opacity, transform;
+}
+
+.technicalGrid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgb(242 223 193 / 8%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(242 223 193 / 8%) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+  mask-image: radial-gradient(circle at 40% 50%, #000 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle at 40% 50%, #000 30%, transparent 70%);
+  transform: scale(calc(1 + var(--entry-wave) * 0.1));
+}
+
+.technicalFragment {
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  width: 70%;
+  height: auto;
+  filter: grayscale(1) sepia(0.2) contrast(1.5) brightness(0.7);
+  mix-blend-mode: hard-light;
+  clip-path: polygon(
+    0 0, 
+    calc(100% - var(--entry-wave) * 10%) 0, 
+    100% calc(100% - var(--entry-wave) * 10%), 
+    0 100%
+  );
+  transform: translateY(calc(var(--entry-wave) * 2rem));
+}
+
+.technicalAccent {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  width: 20%;
+  height: 2px;
+  background: var(--entry-bright);
+  transform: scaleX(var(--entry-p));
+  transform-origin: left;
+  opacity: 0.6;
+}
+
+/* Evolution Artifact (Evoluir) */
+.evolutionArtifact {
+  position: absolute;
+  z-index: 0;
+  top: 15%;
+  right: clamp(2rem, 10vw, 15rem);
+  width: clamp(20rem, 30vw, 36rem);
+  aspect-ratio: 1;
+  opacity: clamp(0, calc((var(--entry-p) - 0.2) * 2.5), 0.9);
+  transform: translateY(calc((1 - var(--entry-p)) * 6rem));
+  will-change: opacity, transform;
+}
+
+.evolutionShapeOne,
+.evolutionShapeTwo {
+  position: absolute;
+  inset: 0;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  background: radial-gradient(circle at 30% 30%, rgb(93 47 25 / 40%), transparent 60%);
+  filter: blur(1rem);
+  mix-blend-mode: screen;
+  transform: rotate(calc(var(--entry-p) * 90deg)) scale(calc(0.8 + var(--entry-wave) * 0.4));
+  transition: transform 0.1s linear;
+}
+
+.evolutionShapeTwo {
+  border-radius: 60% 40% 30% 70% / 50% 40% 50% 60%;
+  background: radial-gradient(circle at 70% 70%, rgb(186 118 72 / 30%), transparent 60%);
+  transform: rotate(calc(var(--entry-p) * -60deg)) scale(calc(1.2 - var(--entry-wave) * 0.2));
+}
+
+.evolutionCore {
+  position: absolute;
+  inset: 25%;
+  border-radius: 50%;
+  background: var(--entry-bright);
+  opacity: calc(0.05 + var(--entry-wave) * 0.15);
+  filter: blur(2rem);
+  transform: scale(calc(1 + var(--entry-wave) * 0.5));
+}
+
+@media (max-width: 760px) {
+  .technicalArtifact, .evolutionArtifact {
+    display: none; /* Simplify on mobile for now */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .technicalArtifact, .evolutionArtifact {
+    transform: none;
+    opacity: 0.5;
+  }
+  .evolutionShapeOne, .evolutionShapeTwo {
+    transform: none;
+  }
+  .technicalGrid {
+    transform: none;
+  }
+  .technicalFragment {
+    transform: none;
+    clip-path: none;
+  }
+}

@@ -145,6 +145,25 @@ export default function ServicesSection() {
             data-work-entry
           >
             <div className={styles.entryStage}>
+              {momentIndex === 1 && (
+                <div className={styles.technicalArtifact} aria-hidden="true">
+                  <div className={styles.technicalGrid} />
+                  <img
+                    className={styles.technicalFragment}
+                    src="/media/portfolio/fragments/code-fragment-v1.jpg"
+                    alt=""
+                  />
+                  <div className={styles.technicalAccent} />
+                </div>
+              )}
+
+              {momentIndex === 2 && (
+                <div className={styles.evolutionArtifact} aria-hidden="true">
+                  <div className={styles.evolutionShapeOne} />
+                  <div className={styles.evolutionShapeTwo} />
+                  <div className={styles.evolutionCore} />
+                </div>
+              )}
 
               
 

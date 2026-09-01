@@ -17,6 +17,8 @@
 }
 
 .introduction {
+  position: relative;
+  overflow: hidden;
   min-height: 100svh;
   padding-block: clamp(6rem, 10vw, 9rem) clamp(4rem, 8vw, 7rem);
   display: grid;
@@ -332,6 +334,8 @@
   .section { --entry-gutter: 1rem; }
 
   .introduction {
+  position: relative;
+  overflow: hidden;
     min-height: 88svh;
     padding-block: 5.5rem 2.5rem;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -418,3 +422,124 @@
   .handoff a::after { transition: none; }
 }
 
+/* Technical Artifact (Construir) */
+.technicalArtifact {
+  position: absolute;
+  z-index: 0;
+  top: 10%;
+  left: clamp(-4rem, -10vw, -12rem);
+  width: clamp(24rem, 38vw, 44rem);
+  height: 80%;
+  opacity: clamp(0, calc((var(--entry-p) - 0.1) * 3), 0.85);
+  transform: translate3d(
+    calc((1 - var(--entry-p)) * -4rem),
+    calc((var(--entry-wave) - 0.5) * -2rem),
+    0
+  );
+  will-change: opacity, transform;
+}
+
+.technicalGrid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgb(242 223 193 / 8%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(242 223 193 / 8%) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+  mask-image: radial-gradient(circle at 40% 50%, #000 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle at 40% 50%, #000 30%, transparent 70%);
+  transform: scale(calc(1 + var(--entry-wave) * 0.1));
+}
+
+.technicalFragment {
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  width: 70%;
+  height: auto;
+  filter: grayscale(1) sepia(0.2) contrast(1.5) brightness(0.7);
+  mix-blend-mode: hard-light;
+  clip-path: polygon(
+    0 0, 
+    calc(100% - var(--entry-wave) * 10%) 0, 
+    100% calc(100% - var(--entry-wave) * 10%), 
+    0 100%
+  );
+  transform: translateY(calc(var(--entry-wave) * 2rem));
+}
+
+.technicalAccent {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  width: 20%;
+  height: 2px;
+  background: var(--entry-bright);
+  transform: scaleX(var(--entry-p));
+  transform-origin: left;
+  opacity: 0.6;
+}
+
+/* Evolution Artifact (Evoluir) */
+.evolutionArtifact {
+  position: absolute;
+  z-index: 0;
+  top: 15%;
+  right: clamp(2rem, 10vw, 15rem);
+  width: clamp(20rem, 30vw, 36rem);
+  aspect-ratio: 1;
+  opacity: clamp(0, calc((var(--entry-p) - 0.2) * 2.5), 0.9);
+  transform: translateY(calc((1 - var(--entry-p)) * 6rem));
+  will-change: opacity, transform;
+}
+
+.evolutionShapeOne,
+.evolutionShapeTwo {
+  position: absolute;
+  inset: 0;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  background: radial-gradient(circle at 30% 30%, rgb(93 47 25 / 40%), transparent 60%);
+  filter: blur(1rem);
+  mix-blend-mode: screen;
+  transform: rotate(calc(var(--entry-p) * 90deg)) scale(calc(0.8 + var(--entry-wave) * 0.4));
+  transition: transform 0.1s linear;
+}
+
+.evolutionShapeTwo {
+  border-radius: 60% 40% 30% 70% / 50% 40% 50% 60%;
+  background: radial-gradient(circle at 70% 70%, rgb(186 118 72 / 30%), transparent 60%);
+  transform: rotate(calc(var(--entry-p) * -60deg)) scale(calc(1.2 - var(--entry-wave) * 0.2));
+}
+
+.evolutionCore {
+  position: absolute;
+  inset: 25%;
+  border-radius: 50%;
+  background: var(--entry-bright);
+  opacity: calc(0.05 + var(--entry-wave) * 0.15);
+  filter: blur(2rem);
+  transform: scale(calc(1 + var(--entry-wave) * 0.5));
+}
+
+@media (max-width: 760px) {
+  .technicalArtifact, .evolutionArtifact {
+    display: none; /* Simplify on mobile for now */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .technicalArtifact, .evolutionArtifact {
+    transform: none;
+    opacity: 0.5;
+  }
+  .evolutionShapeOne, .evolutionShapeTwo {
+    transform: none;
+  }
+  .technicalGrid {
+    transform: none;
+  }
+  .technicalFragment {
+    transform: none;
+    clip-path: none;
+  }
+}

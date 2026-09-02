@@ -1,0 +1,31 @@
+{
+  "id": "lucas-hoodie-silhouette-v1",
+  "status": "prototype",
+  "createdAt": "2026-09-01",
+  "source": {
+    "file": "../../curated/personal/personal-10-cutout-hoodie.jpg",
+    "sha256": "cb368a1bc5f9c48128bf5f1dead76276f8fd4d18348ec477eacf91a5205c676c"
+  },
+  "output": {
+    "file": "lucas-hoodie-silhouette-v1.png",
+    "sha256": "e4a17a52d85b1f35863031fae94dfb45d1ca0c8a5900e76b14b2e7785cc77b51",
+    "width": 1380,
+    "height": 1140,
+    "format": "png",
+    "colorMode": "rgba",
+    "hasTransparency": true
+  },
+  "intendedUse": [
+    "large editorial background artifact",
+    "scroll-linked mask",
+    "color-inversion interaction prototype"
+  ],
+  "process": [
+    "identity-preserving background extraction with built-in image generation",
+    "second extraction pass to remove simulated transparency grid",
+    "deterministic conversion of the remaining light background to a real alpha channel",
+    "alpha-channel and visual inspection"
+  ],
+  "prompt": "Remove the entire background and create a genuine transparent-background PNG cutout. Preserve the exact person, face, hair, expression, hoodie, pose, crop, proportions, texture, and photographic character. Keep a lightly imperfect editorial edge. Do not add outline, shadow, glow, objects, typography, facial retouching, replacement clothing or invented detail.",
+  "notes": "Primeiro recorte para avaliar presença e escala. Ainda não aprovado nem promovido para public/."
+}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import styles from './portfolio-home.module.css';
+import KineticTitle from '../experiments/kinetic-title/KineticTitle';
 import ServicesSection from './ServicesSection';
 
 const terminalProductionImage =
@@ -327,9 +328,8 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
                 </div>
 
                 <div className={styles.titleMask}>
-                  <h2>
-                    <span>SOFTWARE</span>
-                    <span>ENGINEER</span>
+                  <h2 aria-label="Software Engineer">
+                    <KineticTitle mode="portfolio" active />
                   </h2>
                 </div>
 

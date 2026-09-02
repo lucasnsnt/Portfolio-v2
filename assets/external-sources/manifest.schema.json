@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Manifesto de fontes visuais externas",
+  "type": "object",
+  "required": ["assets"],
+  "properties": {
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "file",
+          "category",
+          "title",
+          "creator",
+          "sourceUrl",
+          "license",
+          "licenseUrl",
+          "retrievedAt",
+          "intendedUse"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "file": { "type": "string" },
+          "category": {
+            "enum": ["archive", "science", "diagrams", "textures"]
+          },
+          "title": { "type": "string" },
+          "creator": { "type": "string" },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "license": { "type": "string" },
+          "licenseUrl": { "type": "string", "format": "uri" },
+          "retrievedAt": { "type": "string", "format": "date" },
+          "intendedUse": { "type": "string" },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
+

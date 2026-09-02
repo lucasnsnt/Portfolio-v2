@@ -1025,16 +1025,14 @@
   font-size: clamp(6rem, 16vw, 16rem);
   font-weight: 900;
   line-height: 0.67;
-  letter-spacing: -0.075em;
   text-transform: uppercase;
   transform: translateY(calc(112% - var(--reveal-p) * 112%)) scaleY(calc(0.84 + var(--reveal-p) * 0.16));
   will-change: transform;
 }
 
-.titleMask h2 span:last-child {
+.titleMask h2 > span:last-child {
   align-self: flex-end;
   color: transparent;
-  -webkit-text-stroke: clamp(1px, 0.12vw, 2px) #f4eee3;
   transform: translate3d(
     calc(9vw - var(--settle-p) * 9vw),
     calc(var(--title-merge) * -0.335em),
@@ -1043,7 +1041,7 @@
   will-change: transform;
 }
 
-.titleMask h2 span:first-child {
+.titleMask h2 > span:first-child {
   transform: translateY(calc(var(--title-merge) * 0.335em));
   will-change: transform;
 }
@@ -1302,13 +1300,13 @@
 
   .archiveMeta { font-size: 0.52rem; }
   .titleMask { grid-column: 1 / -1; }
-  .titleMask h2 span:first-child {
+  .titleMask h2 > span:first-child {
     transform: translateY(calc(var(--title-merge) * 0.335em))
       scale(calc(1 - var(--title-merge) * 0.34));
     transform-origin: left center;
   }
 
-  .titleMask h2 span:last-child {
+  .titleMask h2 > span:last-child {
     align-self: flex-end;
     transform: translate3d(
       calc(9vw - var(--settle-p) * 9vw),
@@ -1373,8 +1371,8 @@
   .mediaStage,
   .mediaPlane,
   .titleMask h2,
-  .titleMask h2 span:first-child,
-  .titleMask h2 span:last-child { transform: none; }
+  .titleMask h2 > span:first-child,
+  .titleMask h2 > span:last-child { transform: none; }
   .mediaTransfer .mediaPlane { opacity: 1; }
   .carouselRail,
   .carouselRailReverse,

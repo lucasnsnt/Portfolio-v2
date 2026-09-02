@@ -1099,6 +1099,231 @@
   transform-origin: left;
 }
 
+.serviceHandoff {
+  --handoff-p: 0.45;
+  --handoff-reveal: 1;
+  --handoff-exit: 0;
+  position: relative;
+  z-index: 2;
+  min-height: 148svh;
+  margin-top: -1px;
+  overflow: clip;
+  color: #f4eee3;
+  background: #121110;
+  border-top: 1px solid rgb(244 238 227 / 16%);
+}
+
+.handoffPin {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  padding: clamp(5.75rem, 8vw, 8rem) clamp(1rem, 4vw, 4rem) clamp(2rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto 1fr auto;
+  gap: 1rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.handoffPin::before,
+.handoffPin::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+}
+
+.handoffPin::before {
+  z-index: -2;
+  opacity: calc(0.28 + var(--handoff-reveal) * 0.42);
+  background:
+    radial-gradient(circle at calc(18% + var(--handoff-p) * 28%) 31%, rgb(69 104 85 / 44%), transparent 28%),
+    radial-gradient(circle at 84% 78%, rgb(128 96 68 / 31%), transparent 34%),
+    linear-gradient(115deg, #121110 0, #19140f 54%, #0d0c0a 100%);
+}
+
+.handoffPin::after {
+  z-index: 6;
+  opacity: calc(0.34 - var(--handoff-exit) * 0.16);
+  background:
+    linear-gradient(90deg, rgb(18 17 16 / 92%) 0 18%, transparent 52%, rgb(18 17 16 / 78%) 100%),
+    repeating-linear-gradient(0deg, transparent 0 5px, rgb(0 0 0 / 18%) 6px);
+  mix-blend-mode: multiply;
+}
+
+.handoffField {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.handoffField span {
+  position: absolute;
+  display: block;
+  opacity: calc(0.12 + var(--handoff-reveal) * 0.35);
+  background: rgb(244 238 227 / 46%);
+  transform-origin: center;
+}
+
+.handoffField span:first-child {
+  top: 17%;
+  left: -8%;
+  width: 116%;
+  height: 1px;
+  transform: translateY(calc(var(--handoff-p) * 18vh)) rotate(-5deg);
+}
+
+.handoffField span:nth-child(2) {
+  top: 9%;
+  right: 24%;
+  width: 1px;
+  height: 84%;
+  transform: translateX(calc(var(--handoff-p) * -7vw)) rotate(7deg);
+}
+
+.handoffField span:last-child {
+  right: -7%;
+  bottom: 22%;
+  width: 50vw;
+  height: 1px;
+  transform: translateX(calc(var(--handoff-p) * -16vw)) rotate(2deg);
+}
+
+.handoffMedia {
+  position: absolute;
+  z-index: 2;
+  top: 18%;
+  right: clamp(-7rem, -4vw, -2rem);
+  width: clamp(15rem, 28vw, 31rem);
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid rgb(244 238 227 / 18%);
+  opacity: calc(0.1 + var(--handoff-reveal) * 0.64 - var(--handoff-exit) * 0.26);
+  background: #0d0c0a;
+  box-shadow: 0 2rem 6rem rgb(0 0 0 / 36%);
+  transform: translate3d(
+    calc(10vw - var(--handoff-reveal) * 12vw),
+    calc(var(--handoff-exit) * -10vh),
+    0
+  ) rotate(calc(5deg - var(--handoff-reveal) * 3deg));
+  will-change: transform, opacity;
+}
+
+.handoffMedia img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.72;
+}
+
+.handoffMedia::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background:
+    radial-gradient(circle at 22% 18%, rgb(242 223 193 / 20%), transparent 28%),
+    linear-gradient(95deg, rgb(8 7 6 / 72%), transparent 44% 70%, rgb(8 7 6 / 42%)),
+    repeating-linear-gradient(0deg, transparent 0 3px, rgb(0 0 0 / 32%) 4px);
+  mix-blend-mode: screen;
+}
+
+.handoffMedia span {
+  position: absolute;
+  z-index: 2;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  font: 0.52rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.12em;
+}
+
+.handoffCopy {
+  position: relative;
+  z-index: 7;
+  grid-column: 1 / span 10;
+  grid-row: 2;
+  align-self: center;
+}
+
+.handoffCopy p,
+.handoffIndex {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.handoffCopy p {
+  margin: 0 0 1rem;
+  font-size: 0.62rem;
+  opacity: calc(0.35 + var(--handoff-reveal) * 0.65);
+  transform: translateY(calc(1rem - var(--handoff-reveal) * 1rem));
+}
+
+.handoffCopy h2 {
+  max-width: 12ch;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: #f4eee3;
+  font-family: 'Legacy Display', Impact, sans-serif;
+  font-size: clamp(4.4rem, 10.8vw, 12.5rem);
+  font-weight: 900;
+  line-height: 0.73;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.handoffCopy h2 span {
+  display: block;
+  opacity: var(--handoff-reveal);
+  transform: translate3d(
+    calc((1 - var(--handoff-reveal)) * -7vw + var(--handoff-exit) * 4vw),
+    calc((1 - var(--handoff-reveal)) * 88% - var(--handoff-exit) * 40%),
+    0
+  );
+  will-change: transform, opacity;
+}
+
+.handoffCopy h2 span:nth-child(2) {
+  margin-left: 0.38em;
+  color: transparent;
+  -webkit-text-stroke: clamp(1px, 0.12vw, 2px) #f4eee3;
+  transform: translate3d(
+    calc((1 - var(--handoff-reveal)) * 9vw - var(--handoff-exit) * 3vw),
+    calc((1 - var(--handoff-reveal)) * -88% - var(--handoff-exit) * 28%),
+    0
+  );
+}
+
+.handoffCopy h2 span:last-child {
+  margin-left: 0.1em;
+  transform: translate3d(
+    calc((1 - var(--handoff-reveal)) * -4vw + var(--handoff-exit) * 6vw),
+    calc((1 - var(--handoff-reveal)) * 72% - var(--handoff-exit) * 54%),
+    0
+  );
+}
+
+.handoffIndex {
+  position: relative;
+  z-index: 7;
+  grid-column: 8 / -1;
+  grid-row: 3;
+  display: grid;
+  grid-template-columns: auto 1fr 1fr 1fr;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  align-items: end;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(244 238 227 / 22%);
+  font-size: 0.56rem;
+  opacity: calc(0.2 + var(--handoff-reveal) * 0.8);
+  transform: translateY(calc(1.25rem - var(--handoff-reveal) * 1.25rem));
+}
+
 .after {
   min-height: 100vh;
   padding: clamp(5rem, 12vw, 11rem) clamp(1rem, 4vw, 4rem);
@@ -1335,6 +1560,40 @@
 
   .carouselTop { top: 14vh; }
   .carouselBottom { bottom: 14vh; }
+  .serviceHandoff { min-height: 122svh; }
+  .handoffPin {
+    padding: 5.5rem 1rem 2rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .handoffMedia {
+    top: auto;
+    right: -18vw;
+    bottom: 17vh;
+    width: 62vw;
+    opacity: calc(0.12 + var(--handoff-reveal) * 0.44 - var(--handoff-exit) * 0.22);
+  }
+  .handoffCopy {
+    grid-column: 1 / -1;
+  }
+  .handoffCopy h2 {
+    max-width: 9ch;
+    font-size: clamp(4rem, 19vw, 6.6rem);
+    line-height: 0.78;
+  }
+  .handoffCopy h2 span:nth-child(2),
+  .handoffCopy h2 span:last-child {
+    margin-left: 0;
+  }
+  .handoffIndex {
+    grid-column: 1 / -1;
+    grid-template-columns: auto 1fr;
+    row-gap: 0.55rem;
+    font-size: 0.5rem;
+  }
+  .handoffIndex span:nth-child(3),
+  .handoffIndex span:nth-child(4) {
+    text-align: right;
+  }
   .afterIntro { display: block; }
   .afterLead { margin: 0 0 4rem; }
   .serviceList article { grid-template-columns: 2rem 1fr; }
@@ -1384,5 +1643,20 @@
   .mediaLightType .openingCopy::before { opacity: 0.58; transform: none; }
   .mediaLightType .openingCopy h1 span::before,
   .mediaLightType .openingCopy h1 span::after { display: none; }
+  .serviceHandoff { min-height: auto; }
+  .handoffPin {
+    position: relative;
+    min-height: 74svh;
+  }
+  .handoffPin::before,
+  .handoffPin::after { opacity: 0.24; }
+  .handoffField span { transform: none !important; }
+  .handoffMedia,
+  .handoffCopy p,
+  .handoffCopy h2 span,
+  .handoffIndex {
+    opacity: 1;
+    transform: none;
+  }
   .progress { display: none; }
 }

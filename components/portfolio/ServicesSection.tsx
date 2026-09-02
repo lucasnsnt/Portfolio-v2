@@ -29,8 +29,15 @@ const workMoments = [
   },
 ];
 
+const mothFrames = Array.from(
+  { length: 8 },
+  (_, index) => `/media/portfolio/artifacts/moth-flight/frame-${String(index + 1).padStart(2, '0')}.webp`,
+);
+const mothRestFrame = mothFrames[mothFrames.length - 1];
+
 export default function ServicesSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const mothRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -41,7 +48,25 @@ export default function ServicesSection() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let frame = 0;
     let displayedIntro = 0;
+    let mothFrame = 0;
+    let mothIsVisible = false;
+    let mothIsResting = false;
     const displayedEntries = entries.map(() => 0);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        mothIsVisible = entry.isIntersecting;
+      },
+      { threshold: 0.02 },
+    );
+
+    const wingbeat = window.setInterval(() => {
+      const moth = mothRef.current;
+      if (!moth || !mothIsVisible || mothIsResting || reducedMotion.matches) return;
+
+      mothFrame = (mothFrame + 1) % mothFrames.length;
+      moth.src = mothFrames[mothFrame];
+    }, 110);
 
     const update = () => {
       frame = 0;
@@ -50,10 +75,16 @@ export default function ServicesSection() {
       const sectionBounds = section.getBoundingClientRect();
       const sectionTravel = Math.max(sectionBounds.height - viewport, 1);
       const sectionProgress = clamp(-sectionBounds.top / sectionTravel);
+      const mothLanding = clamp((sectionProgress - 0.84) / 0.16);
+      const moth = mothRef.current;
+      mothIsResting = mothLanding >= 0.98 || reducedMotion.matches;
+
+      if (mothIsResting && moth) moth.src = mothRestFrame;
+
       section.style.setProperty('--section-p', sectionProgress.toFixed(4));
       section.style.setProperty(
         '--moth-wave',
-        Math.sin(sectionProgress * Math.PI * 4.5).toFixed(4),
+        (Math.sin(sectionProgress * Math.PI * 4.5) * (1 - mothLanding)).toFixed(4),
       );
 
       if (reducedMotion.matches) {
@@ -98,12 +129,15 @@ export default function ServicesSection() {
     };
 
     update();
+    observer.observe(section);
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', requestUpdate);
     reducedMotion.addEventListener('change', requestUpdate);
 
     return () => {
       window.cancelAnimationFrame(frame);
+      window.clearInterval(wingbeat);
+      observer.disconnect();
       window.removeEventListener('scroll', requestUpdate);
       window.removeEventListener('resize', requestUpdate);
       reducedMotion.removeEventListener('change', requestUpdate);
@@ -119,7 +153,13 @@ export default function ServicesSection() {
     >
       <div className={styles.mothJourney} aria-hidden="true">
         <div className={styles.mothTraveler}>
-          <img src="/media/portfolio/artifacts/moth-flight.png" alt="" />
+          <img
+            className={styles.mothSprite}
+            src={mothRestFrame}
+            alt=""
+            decoding="async"
+            ref={mothRef}
+          />
         </div>
       </div>
 

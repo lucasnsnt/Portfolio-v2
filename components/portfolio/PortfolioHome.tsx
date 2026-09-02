@@ -40,6 +40,7 @@ type PortfolioHomeProps = {
 
 export default function PortfolioHome({ openingVariant = 'default' }: PortfolioHomeProps) {
   const trackRef = useRef<HTMLElement>(null);
+  const handoffRef = useRef<HTMLElement>(null);
   const bridgePortraitRef = useRef<HTMLImageElement>(null);
   const usesEnvironmentFragments = openingVariant === 'environment-fragments';
   const usesMediaLightType = openingVariant === 'media-light-type';
@@ -112,6 +113,7 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
         * (1 - clamp((scene - 0.92) / 0.06));
       const transferOriginFade = clamp((scene - 0.14) / 0.35);
       const direction = window.scrollY >= previousScroll ? 1 : -1;
+      const handoff = handoffRef.current;
 
       track.style.setProperty('--track-p', progress.toFixed(4));
       track.style.setProperty('--p', scene.toFixed(4));
@@ -130,6 +132,19 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
       track.style.setProperty('--transfer-v3', transferThreeVisibility.toFixed(4));
       track.style.setProperty('--transfer-origin-fade', transferOriginFade.toFixed(4));
       track.style.setProperty('--scroll-direction', String(direction));
+
+      if (handoff) {
+        const handoffBounds = handoff.getBoundingClientRect();
+        const handoffProgress = clamp(
+          (window.innerHeight - handoffBounds.top) / Math.max(window.innerHeight + handoffBounds.height, 1),
+        );
+        const handoffReveal = clamp((handoffProgress - 0.18) / 0.46);
+        const handoffExit = clamp((handoffProgress - 0.62) / 0.3);
+
+        handoff.style.setProperty('--handoff-p', handoffProgress.toFixed(4));
+        handoff.style.setProperty('--handoff-reveal', handoffReveal.toFixed(4));
+        handoff.style.setProperty('--handoff-exit', handoffExit.toFixed(4));
+      }
 
       if (usesMediaTransfer) {
         track.toggleAttribute('data-transfer-complete', scene >= 0.985);
@@ -359,6 +374,23 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
 
           <div className={styles.progress} aria-hidden="true">
             <span />
+          </div>
+        </div>
+      </section>
+
+      <section
+        className={styles.serviceHandoff}
+        id="transicao-servicos"
+        aria-label="Transição para serviços"
+        ref={handoffRef}
+      >
+        <div className={styles.handoffPin}>
+          <div className={styles.handoffCopy}>
+            <h2>
+              <span>Da presenca</span>
+              <span>ao que pode</span>
+              <span>ser construido</span>
+            </h2>
           </div>
         </div>
       </section>

@@ -238,43 +238,6 @@
 
 .mediaPlaneFront strong { font-size: 1rem; }
 
-.mediaPulse {
-  position: absolute;
-  z-index: 4;
-  top: 50%;
-  left: 52%;
-  width: 16rem;
-  aspect-ratio: 1;
-  border: 1px solid rgb(255 255 255 / 32%);
-  border-radius: 50%;
-  opacity: calc(0.72 - var(--bridge-p) * 0.6);
-  transform: translate(-50%, -50%) scale(calc(0.7 + var(--p) * 1.9));
-}
-
-.mediaPulse::before,
-.mediaPulse::after {
-  position: absolute;
-  inset: 18%;
-  border: inherit;
-  border-radius: inherit;
-  content: '';
-}
-
-.mediaPulse::after { inset: 36%; }
-
-.scanner {
-  position: absolute;
-  z-index: 7;
-  top: -20%;
-  bottom: -20%;
-  left: 33%;
-  width: 1px;
-  opacity: calc(0.28 - var(--bridge-p) * 0.28);
-  background: linear-gradient(transparent, rgb(255 244 220 / 86%) 30% 70%, transparent);
-  box-shadow: 0 0 2.8rem 0.6rem rgb(142 196 170 / 24%);
-  transform: translateX(calc(var(--p) * 42vw)) rotate(8deg);
-}
-
 .openingCopy {
   position: absolute;
   z-index: 8;
@@ -287,26 +250,7 @@
   will-change: transform, opacity;
 }
 
-.openingCopy::before {
-  position: absolute;
-  z-index: -1;
-  inset: -8% -4% -12% -3%;
-  content: '';
-  pointer-events: none;
-  opacity: calc(1 - var(--bridge-p));
-  background: linear-gradient(
-    94deg,
-    rgb(5 7 6 / 82%) 0,
-    rgb(5 7 6 / 58%) 42%,
-    rgb(5 7 6 / 18%) 72%,
-    transparent 92%
-  );
-  -webkit-mask-image: radial-gradient(ellipse 92% 82% at 34% 50%, #000 0 58%, transparent 100%);
-  mask-image: radial-gradient(ellipse 92% 82% at 34% 50%, #000 0 58%, transparent 100%);
-}
-
 .openingCopy p,
-.openingFooter,
 .openingInfo span,
 .archiveMeta,
 .capabilities,
@@ -321,26 +265,6 @@
   color: #f4eee3;
   font-size: 0.65rem;
   font-weight: 600;
-}
-
-.openingCopy h1 {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  color: #f4eee3;
-  font-family: 'Legacy Display', Impact, sans-serif;
-  font-size: clamp(6rem, 16vw, 16rem);
-  font-weight: 900;
-  line-height: 0.66;
-  letter-spacing: -0.075em;
-  text-transform: uppercase;
-}
-
-.openingCopy h1 span:last-child {
-  align-self: flex-end;
-  color: rgb(244 238 227 / 8%);
-  -webkit-text-stroke: clamp(1.5px, 0.15vw, 2.4px) #f8f1e5;
-  transform: translateX(calc(var(--p) * 7vw));
 }
 
 .titleLightField {
@@ -383,73 +307,8 @@
   transform: translateX(calc(var(--p) * 14vw)) rotate(-2deg);
 }
 
-.mediaLightType .openingCopy h1 span {
-  position: relative;
-  isolation: isolate;
-}
-
 .mediaLightType .openingCopy {
   isolation: isolate;
-}
-
-.mediaLightType .openingCopy::before {
-  position: absolute;
-  z-index: -1;
-  inset: -12% -5% -18% -4%;
-  content: '';
-  pointer-events: none;
-  opacity: calc((1 - var(--bridge-p)) * 0.76);
-  background:
-    radial-gradient(ellipse at 28% 41%, rgb(5 7 6 / 72%) 0 20%, rgb(5 7 6 / 43%) 48%, transparent 75%),
-    linear-gradient(94deg, rgb(5 7 6 / 66%) 0, rgb(5 7 6 / 24%) 58%, transparent 88%);
-  filter: blur(15px);
-  transform: translate3d(calc(var(--p) * 2vw), 0, 0);
-}
-
-.mediaLightType .openingCopy h1 span::before,
-.mediaLightType .openingCopy h1 span::after {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  content: attr(data-text);
-  pointer-events: none;
-  color: #f4eee3;
-  -webkit-text-stroke: 0 transparent;
-  opacity: calc((1 - var(--bridge-p)) * 0.26);
-  mix-blend-mode: screen;
-}
-
-.mediaLightType .openingCopy h1 span::before {
-  clip-path: inset(17% 0 64% 0);
-  color: rgb(192 215 199 / 86%);
-  filter: blur(0.45px);
-  transform: translate3d(calc(-2px + var(--p) * 5px), 1px, 0);
-}
-
-.mediaLightType .openingCopy h1 span::after {
-  clip-path: inset(65% 0 13% 0);
-  color: rgb(244 222 184 / 82%);
-  filter: blur(0.7px);
-  transform: translate3d(calc(3px - var(--p) * 6px), -1px, 0);
-}
-
-.mediaLightType .openingCopy h1 span:last-child::before,
-.mediaLightType .openingCopy h1 span:last-child::after {
-  color: transparent;
-  -webkit-text-stroke: clamp(1px, 0.12vw, 2px) currentColor;
-}
-
-.mediaLightType .openingCopy h1 span:last-child::before {
-  color: rgb(180 207 189 / 72%);
-}
-
-.mediaLightType .openingCopy h1 span:last-child::after {
-  color: rgb(235 215 179 / 68%);
-}
-
-.mediaLightType .openingCopy h1 span:last-child {
-  -webkit-text-stroke-color: rgb(248 241 228 / 96%);
-  filter: drop-shadow(0 0 0.7rem rgb(3 5 4 / 44%));
 }
 
 .openingInfo {
@@ -471,18 +330,6 @@
   color: #f4eee3;
   font-size: 0.61rem;
   font-weight: 600;
-}
-
-.openingFooter {
-  position: absolute;
-  z-index: 8;
-  right: 34vw;
-  bottom: 1.8rem;
-  left: clamp(1rem, 4vw, 4rem);
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.6rem;
-  opacity: calc(1 - var(--bridge-p));
 }
 
 .gap {
@@ -963,24 +810,14 @@
   .track { height: 360vh; }
   .openingCopy { width: 92vw; }
 
-  .openingCopy h1,
   .titleMask h2 {
     font-size: clamp(4.8rem, 23vw, 8rem);
     line-height: 0.72;
   }
 
-  .openingCopy h1 span:last-child { align-self: flex-start; }
   .titleLightField { inset: 20% 25vw 25% 0; }
   .titleLightField span:first-child { left: 0; width: 92vw; filter: blur(18px); }
   .titleLightField span:last-child { left: 12%; width: 72vw; }
-  .mediaLightType .openingCopy::before {
-    inset: -10% -3% -16% -6%;
-    opacity: calc((1 - var(--bridge-p)) * 0.68);
-    background: linear-gradient(92deg, rgb(4 6 5 / 68%), rgb(4 6 5 / 34%) 72%, transparent);
-    filter: blur(12px);
-  }
-  .mediaLightType .openingCopy h1 span::before,
-  .mediaLightType .openingCopy h1 span::after { opacity: calc((1 - var(--bridge-p)) * 0.18); }
   .mediaPlaneBack { inset: -8% 1% 32% 30%; }
   .mediaPlaneMiddle { inset: 29% 22% -10% 1%; }
   .mediaPlaneFront { inset: 20% 3% 22% 42%; }
@@ -991,8 +828,6 @@
   }
 
   .openingInfo p { font-size: 0.95rem; }
-  .openingFooter { right: 32vw; gap: 1rem; }
-  .openingFooter span:nth-child(2) { display: none; }
   .bridge {
     font-size: clamp(4.15rem, min(20.5vw, 10vh), 7.4rem);
   }
@@ -1102,7 +937,6 @@
   .bridge span,
   .openingCopy,
   .openingInfo,
-  .openingFooter,
   .archiveContent,
   .positioning,
   .capabilities { opacity: 1; transform: none; }
@@ -1118,8 +952,5 @@
   .titleLightField { opacity: 0.34; transform: none; }
   .titleLightField span { animation: none !important; transform: none !important; }
   .transferLayer { display: none; }
-  .mediaLightType .openingCopy::before { opacity: 0.58; transform: none; }
-  .mediaLightType .openingCopy h1 span::before,
-  .mediaLightType .openingCopy h1 span::after { display: none; }
   .progress { display: none; }
 }

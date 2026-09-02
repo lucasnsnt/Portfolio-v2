@@ -13,12 +13,12 @@ const terminalProductionImage =
   '/media/projects/unemployment-killer/vps-spring-production.png';
 
 const mediaTiles = [
-  ['01', 'DIRECTION', '/media/hero/green-motion.jpg'],
-  ['02', 'INTERFACE', '/media/hero/night-motion.jpg'],
-  ['03', 'SPRING / VPS', terminalProductionImage],
-  ['04', 'SYSTEM', '/media/hero/galaxy-grain.jpg'],
-  ['05', 'EXPERIENCE', '/media/hero/green-motion.jpg'],
-  ['06', 'DELIVERY', '/media/hero/night-motion.jpg'],
+  '/media/hero/green-motion.jpg',
+  '/media/hero/night-motion.jpg',
+  terminalProductionImage,
+  '/media/hero/galaxy-grain.jpg',
+  '/media/hero/green-motion.jpg',
+  '/media/hero/night-motion.jpg',
 ];
 
 type PortfolioHomeProps = {
@@ -71,15 +71,10 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
                   <img
                     src={usesEnvironmentFragments
                       ? '/media/experiments/environment-fragments-hero/keyboard-motion.jpg'
-                      : terminalProductionImage}
-                    className={usesEnvironmentFragments ? undefined : styles.terminalMedia}
+                      : '/media/hero/monochrome-motion.jpg'}
                     alt=""
                   />
-                  <span>DESIGN / DEVELOPMENT</span>
-                  <strong>01</strong>
                 </div>
-                <div className={styles.mediaPulse} />
-                <div className={styles.scanner} />
               </div>
 
               {usesMediaLightType && (
@@ -91,10 +86,6 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
 
               <div className={styles.openingCopy}>
                 <p>SOFTWARE DEVELOPMENT / CREATIVE DIRECTION</p>
-                <h1>
-                  <span data-text="IDEIAS EM">IDEIAS EM</span>
-                  <span data-text="MOVIMENTO">MOVIMENTO</span>
-                </h1>
               </div>
 
               <div className={styles.openingInfo}>
@@ -105,11 +96,6 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
                 <span>EXPLORE O TRABALHO ↘</span>
               </div>
 
-              <div className={styles.openingFooter}>
-                <span>LANDING PAGES</span>
-                <span>WEB EXPERIENCES</span>
-                <span>SOFTWARE DEVELOPMENT</span>
-              </div>
             </article>
 
             <div className={styles.gap} aria-hidden="true">
@@ -117,18 +103,12 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
                 <div className={styles.transferLayer}>
                   <div className={`${styles.transferCard} ${styles.transferCardOne}`}>
                     <img src="/media/hero/green-motion.jpg" alt="" />
-                    <span>01</span>
-                    <strong>DIRECTION</strong>
                   </div>
                   <div className={`${styles.transferCard} ${styles.transferCardTwo}`}>
                     <img src="/media/hero/night-motion.jpg" alt="" />
-                    <span>02</span>
-                    <strong>INTERFACE</strong>
                   </div>
                   <div className={`${styles.transferCard} ${styles.transferCardThree} ${styles.terminalCard}`}>
                     <img src={terminalProductionImage} className={styles.terminalMedia} alt="" />
-                    <span>03</span>
-                    <strong>SPRING / VPS</strong>
                   </div>
                 </div>
               )}
@@ -150,18 +130,16 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
             <article className={`${styles.chapter} ${styles.archive}`}>
               <div className={`${styles.carousel} ${styles.carouselTop}`} aria-hidden="true">
                 <div className={styles.carouselRail}>
-                  {[...mediaTiles, ...mediaTiles].map(([number, label, image], index) => (
+                  {[...mediaTiles, ...mediaTiles].map((image, index) => (
                     <div
                       className={`${styles.mediaTile} ${image === terminalProductionImage ? styles.terminalTile : ''}`}
                       key={`top-${index}`}
-                    >
-                      <img
-                        src={image}
-                        className={image === terminalProductionImage ? styles.terminalMedia : undefined}
-                        alt=""
-                      />
-                      <span>{number}</span>
-                      <strong>{label}</strong>
+                      >
+                        <img
+                          src={image}
+                          className={image === terminalProductionImage ? styles.terminalMedia : undefined}
+                          alt=""
+                        />
                     </div>
                   ))}
                 </div>
@@ -170,7 +148,7 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
               <div className={`${styles.carousel} ${styles.carouselBottom}`} aria-hidden="true">
                 <div className={styles.carouselRailReverse}>
                   {[...mediaTiles.slice().reverse(), ...mediaTiles.slice().reverse()].map(
-                    ([number, label, image], index) => (
+                    (image, index) => (
                       <div
                         className={`${styles.mediaTile} ${image === terminalProductionImage ? styles.terminalTile : ''}`}
                         key={`bottom-${index}`}
@@ -180,8 +158,6 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
                           className={image === terminalProductionImage ? styles.terminalMedia : undefined}
                           alt=""
                         />
-                        <span>{number}</span>
-                        <strong>{label}</strong>
                       </div>
                     ),
                   )}
@@ -193,7 +169,6 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
               <div className={styles.archiveContent}>
                 <div className={styles.archiveMeta}>
                   <span>LUCAS SANTOS</span>
-                  <span>AVAILABLE FOR SELECTED PROJECTS / 2026</span>
                 </div>
 
                 <div className={styles.titleMask}>
@@ -211,11 +186,6 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
                   <a href="#contato">SOLICITAR ORÇAMENTO ↗</a>
                 </div>
 
-                <div className={styles.capabilities}>
-                  <span>01 / WEB DEVELOPMENT</span>
-                  <span>02 / LANDING PAGES</span>
-                  <span>03 / CREATIVE EXPERIENCES</span>
-                </div>
               </div>
             </article>
           </div>

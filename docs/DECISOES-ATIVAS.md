@@ -21,7 +21,7 @@ Hero → Serviços → Selected Work → Projeto em profundidade → Lab → Sob
 
 - `app/page.tsx` é a entrada real; `components/portfolio/` contém a experiência aprovada.
 - Experimentos não definem a arquitetura do produto.
-- Selected Work começa com Unemployment Killer, CellTech Aracaju e estudos visuais, mantendo classificação explícita.
+- Selected Work começa com apenas Unemployment Killer, mantendo classificação explícita e estrutura pronta para novos projetos.
 
 ## Movimento e adaptação
 

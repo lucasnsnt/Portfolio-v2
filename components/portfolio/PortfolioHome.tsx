@@ -29,7 +29,13 @@ const desktopBridgeFrames = makeBridgeFrames(3, 'desktop');
 const mobileBridgeFrames = makeBridgeFrames(6, 'mobile');
 
 type PortfolioHomeProps = {
-  openingVariant?: 'default' | 'environment-fragments' | 'media-light-type' | 'media-transfer';
+  openingVariant?:
+    | 'default'
+    | 'environment-fragments'
+    | 'media-light-type'
+    | 'media-transfer'
+    | 'inherited-scene'
+    | 'replicated-stage';
 };
 
 export default function PortfolioHome({ openingVariant = 'default' }: PortfolioHomeProps) {

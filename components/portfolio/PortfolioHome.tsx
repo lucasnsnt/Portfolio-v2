@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './portfolio-home.module.css';
 import KineticTitle from '../experiments/kinetic-title/KineticTitle';
 import ServicesSection from './ServicesSection';
@@ -43,6 +43,7 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
   const trackRef = useRef<HTMLElement>(null);
   const handoffRef = useRef<HTMLElement>(null);
   const bridgePortraitRef = useRef<HTMLImageElement>(null);
+  const [activeSection, setActiveSection] = useState('inicio');
   const usesEnvironmentFragments = openingVariant === 'environment-fragments';
   const usesMediaLightType = openingVariant === 'media-light-type';
   const usesMediaTransfer = openingVariant === 'default' || openingVariant === 'media-transfer';
@@ -188,14 +189,60 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
     };
   }, [usesMediaTransfer]);
 
+  useEffect(() => {
+    const sections = ['inicio', 'trabalhos', 'servicos', 'contato']
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
+    let frame = 0;
+
+    const updateNavigation = () => {
+      frame = 0;
+      const navigationOffset = 112;
+      let currentSection = sections[0]?.id ?? 'inicio';
+
+      sections.forEach((section) => {
+        if (section.getBoundingClientRect().top <= navigationOffset) {
+          currentSection = section.id;
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    const requestNavigationUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateNavigation);
+    };
+
+    updateNavigation();
+    window.addEventListener('scroll', requestNavigationUpdate, { passive: true });
+    window.addEventListener('resize', requestNavigationUpdate);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', requestNavigationUpdate);
+      window.removeEventListener('resize', requestNavigationUpdate);
+    };
+  }, []);
+
   return (
     <main
       className={`${styles.page} ${usesEnvironmentFragments ? styles.environmentFragments : ''} ${usesMediaLightType ? styles.mediaLightType : ''} ${usesMediaTransfer ? styles.mediaTransfer : ''}`}
     >
       <header className={styles.nav}>
-        <a href="#inicio">NSNT / LUCAS SANTOS</a>
-        <a href="#servicos">SERVIÇOS</a>
-        <a href="#contato">FALE COMIGO ↗</a>
+        <a className={styles.navBrand} href="#inicio" aria-label="Voltar ao início">
+          NSNTDEV
+        </a>
+        <nav className={styles.navLinks} aria-label="Navegação principal">
+          <a href="#trabalhos" aria-current={activeSection === 'trabalhos' ? 'page' : undefined}>
+            Projetos
+          </a>
+          <a href="#servicos" aria-current={activeSection === 'servicos' ? 'page' : undefined}>
+            Serviços
+          </a>
+        </nav>
+        <a className={styles.navContact} href="#contato" aria-current={activeSection === 'contato' ? 'page' : undefined}>
+          Contato <span aria-hidden="true">↗</span>
+        </a>
       </header>
 
       <section className={styles.track} id="inicio" ref={trackRef}>

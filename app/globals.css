@@ -41,6 +41,12 @@ body {
 
 a { color: inherit; }
 
+#trabalhos,
+#servicos,
+#contato {
+  scroll-margin-top: 5.5rem;
+}
+
 .intro-loader {
   position: fixed;
   inset: 0;

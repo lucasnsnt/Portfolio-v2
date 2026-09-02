@@ -1,10 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import styles from './portfolio-home.module.css';
 import KineticTitle from '../experiments/kinetic-title/KineticTitle';
 import ServicesSection from './ServicesSection';
 import SelectedWorkSection from './SelectedWorkSection';
+import PortfolioNavigation from './PortfolioNavigation';
+import ServiceHandoff from './ServiceHandoff';
+import { useActiveSection, useOpeningMotion } from './usePortfolioMotion';
 
 const terminalProductionImage =
   '/media/projects/unemployment-killer/vps-spring-production.png';
@@ -18,232 +21,30 @@ const mediaTiles = [
   ['06', 'DELIVERY', '/media/hero/night-motion.jpg'],
 ];
 
-const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
-
-const makeBridgeFrames = (step: number, variant: 'desktop' | 'mobile') =>
-  Array.from({ length: Math.floor(150 / step) + 1 }, (_, index) => {
-    const frameNumber = String(1 + index * step).padStart(4, '0');
-    return `/media/bridge/silhouette-motion/production/${variant}/frame-${frameNumber}.webp`;
-  });
-
-const desktopBridgeFrames = makeBridgeFrames(3, 'desktop');
-const mobileBridgeFrames = makeBridgeFrames(6, 'mobile');
-
 type PortfolioHomeProps = {
   openingVariant?:
     | 'default'
     | 'environment-fragments'
-    | 'media-light-type'
-    | 'media-transfer'
-    | 'inherited-scene'
-    | 'replicated-stage';
+    | 'media-light-type';
 };
 
 export default function PortfolioHome({ openingVariant = 'default' }: PortfolioHomeProps) {
   const trackRef = useRef<HTMLElement>(null);
   const handoffRef = useRef<HTMLElement>(null);
   const bridgePortraitRef = useRef<HTMLImageElement>(null);
-  const [activeSection, setActiveSection] = useState('inicio');
   const usesEnvironmentFragments = openingVariant === 'environment-fragments';
   const usesMediaLightType = openingVariant === 'media-light-type';
-  const usesMediaTransfer = openingVariant === 'default' || openingVariant === 'media-transfer';
+  const usesMediaTransfer = openingVariant === 'default';
 
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
+  useOpeningMotion({ trackRef, handoffRef, bridgePortraitRef }, usesMediaTransfer);
 
-    let frame = 0;
-    let previousScroll = window.scrollY;
-    let previousPortraitFrame = -1;
-    let displayedTitleMerge = 0;
-    const mobileQuery = window.matchMedia('(max-width: 760px)');
-    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const preloadedFrames: HTMLImageElement[] = [];
-
-    const getBridgeFrames = () =>
-      mobileQuery.matches ? mobileBridgeFrames : desktopBridgeFrames;
-
-    const preloadBridgeFrames = () => {
-      if (reducedMotionQuery.matches) return;
-
-      getBridgeFrames().forEach((source) => {
-        const image = new window.Image();
-        image.decoding = 'async';
-        image.src = source;
-        preloadedFrames.push(image);
-      });
-    };
-
-    const update = () => {
-      frame = 0;
-      const bounds = track.getBoundingClientRect();
-      const travel = Math.max(track.offsetHeight - window.innerHeight, 1);
-      const travelled = -bounds.top;
-      const progress = clamp(travelled / travel);
-      const sceneEnd = mobileQuery.matches ? 0.655 : 0.667;
-      const scene = clamp(progress / sceneEnd);
-      const exitDistance = Math.max(window.innerHeight * 0.38, 1);
-      const mergeLinear = clamp((travelled - travel) / exitDistance);
-      const mergeTarget = reducedMotionQuery.matches
-        ? 0
-        : mergeLinear * mergeLinear * (3 - 2 * mergeLinear);
-      const mergeDistance = mergeTarget - displayedTitleMerge;
-
-      displayedTitleMerge = Math.abs(mergeDistance) < 0.001
-        ? mergeTarget
-        : displayedTitleMerge + mergeDistance * 0.18;
-      const bridge = clamp((scene - 0.25) / 0.38);
-      const portrait = clamp((scene - 0.03) / 0.78);
-      const portraitEnter = clamp((scene - 0.015) / 0.08);
-      const portraitExit = 1 - clamp((scene - 0.91) / 0.09);
-      const portraitVisibility = portraitEnter * portraitExit;
-      const bridgeVisibility = 1 - clamp((scene - 0.91) / 0.09);
-      const reveal = clamp((scene - 0.48) / 0.34);
-      const settle = clamp((scene - 0.76) / 0.24);
-      const transferOneLinear = clamp((scene - 0.08) / 0.74);
-      const transferTwoLinear = clamp((scene - 0.14) / 0.72);
-      const transferThreeLinear = clamp((scene - 0.2) / 0.7);
-      const transferOne = transferOneLinear * transferOneLinear * (3 - 2 * transferOneLinear);
-      const transferTwo = transferTwoLinear * transferTwoLinear * (3 - 2 * transferTwoLinear);
-      const transferThree = transferThreeLinear * transferThreeLinear * (3 - 2 * transferThreeLinear);
-      const transferEnter = (value: number) => clamp(value / 0.08);
-      const transferOneVisibility = transferEnter(transferOne)
-        * (1 - clamp((scene - 0.84) / 0.08));
-      const transferTwoVisibility = transferEnter(transferTwo)
-        * (1 - clamp((scene - 0.88) / 0.07));
-      const transferThreeVisibility = transferEnter(transferThree)
-        * (1 - clamp((scene - 0.92) / 0.06));
-      const transferOriginFade = clamp((scene - 0.14) / 0.35);
-      const direction = window.scrollY >= previousScroll ? 1 : -1;
-      const handoff = handoffRef.current;
-
-      track.style.setProperty('--track-p', progress.toFixed(4));
-      track.style.setProperty('--p', scene.toFixed(4));
-      track.style.setProperty('--bridge-p', bridge.toFixed(4));
-      track.style.setProperty('--portrait-p', portrait.toFixed(4));
-      track.style.setProperty('--portrait-v', portraitVisibility.toFixed(4));
-      track.style.setProperty('--bridge-v', bridgeVisibility.toFixed(4));
-      track.style.setProperty('--reveal-p', reveal.toFixed(4));
-      track.style.setProperty('--settle-p', settle.toFixed(4));
-      track.style.setProperty('--title-merge', displayedTitleMerge.toFixed(4));
-      track.style.setProperty('--transfer-1', transferOne.toFixed(4));
-      track.style.setProperty('--transfer-2', transferTwo.toFixed(4));
-      track.style.setProperty('--transfer-3', transferThree.toFixed(4));
-      track.style.setProperty('--transfer-v1', transferOneVisibility.toFixed(4));
-      track.style.setProperty('--transfer-v2', transferTwoVisibility.toFixed(4));
-      track.style.setProperty('--transfer-v3', transferThreeVisibility.toFixed(4));
-      track.style.setProperty('--transfer-origin-fade', transferOriginFade.toFixed(4));
-      track.style.setProperty('--scroll-direction', String(direction));
-
-      if (handoff) {
-        const handoffBounds = handoff.getBoundingClientRect();
-        const handoffTravel = Math.max(handoffBounds.height - window.innerHeight, 1);
-        const handoffProgress = clamp(-handoffBounds.top / handoffTravel);
-        const handoffReveal = clamp((handoffProgress - 0.1) / 0.44);
-        const handoffExit = clamp((handoffProgress - 0.72) / 0.28);
-
-        handoff.style.setProperty('--handoff-p', handoffProgress.toFixed(4));
-        handoff.style.setProperty('--handoff-reveal', handoffReveal.toFixed(4));
-        handoff.style.setProperty('--handoff-exit', handoffExit.toFixed(4));
-      }
-
-      if (usesMediaTransfer) {
-        track.toggleAttribute('data-transfer-complete', scene >= 0.985);
-      }
-
-      const portraitFrames = getBridgeFrames();
-      const portraitFrame = reducedMotionQuery.matches
-        ? portraitFrames.length - 1
-        : Math.round(portrait * (portraitFrames.length - 1));
-
-      if (bridgePortraitRef.current && portraitFrame !== previousPortraitFrame) {
-        bridgePortraitRef.current.src = portraitFrames[portraitFrame];
-        previousPortraitFrame = portraitFrame;
-      }
-
-      previousScroll = window.scrollY;
-
-      if (Math.abs(mergeTarget - displayedTitleMerge) >= 0.001) {
-        frame = window.requestAnimationFrame(update);
-      }
-    };
-
-    const requestUpdate = () => {
-      if (!frame) frame = window.requestAnimationFrame(update);
-    };
-
-    update();
-    const preloadTimer = window.setTimeout(preloadBridgeFrames, 450);
-    window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', requestUpdate);
-    mobileQuery.addEventListener('change', requestUpdate);
-    reducedMotionQuery.addEventListener('change', requestUpdate);
-
-    return () => {
-      window.clearTimeout(preloadTimer);
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', requestUpdate);
-      window.removeEventListener('resize', requestUpdate);
-      mobileQuery.removeEventListener('change', requestUpdate);
-      reducedMotionQuery.removeEventListener('change', requestUpdate);
-    };
-  }, [usesMediaTransfer]);
-
-  useEffect(() => {
-    const sections = ['inicio', 'trabalhos', 'servicos', 'contato']
-      .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => section !== null);
-    let frame = 0;
-
-    const updateNavigation = () => {
-      frame = 0;
-      const navigationOffset = 112;
-      let currentSection = sections[0]?.id ?? 'inicio';
-
-      sections.forEach((section) => {
-        if (section.getBoundingClientRect().top <= navigationOffset) {
-          currentSection = section.id;
-        }
-      });
-
-      setActiveSection(currentSection);
-    };
-
-    const requestNavigationUpdate = () => {
-      if (!frame) frame = window.requestAnimationFrame(updateNavigation);
-    };
-
-    updateNavigation();
-    window.addEventListener('scroll', requestNavigationUpdate, { passive: true });
-    window.addEventListener('resize', requestNavigationUpdate);
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', requestNavigationUpdate);
-      window.removeEventListener('resize', requestNavigationUpdate);
-    };
-  }, []);
+  const activeSection = useActiveSection();
 
   return (
     <main
       className={`${styles.page} ${usesEnvironmentFragments ? styles.environmentFragments : ''} ${usesMediaLightType ? styles.mediaLightType : ''} ${usesMediaTransfer ? styles.mediaTransfer : ''}`}
     >
-      <header className={styles.nav}>
-        <a className={styles.navBrand} href="#inicio" aria-label="Voltar ao início">
-          NSNTDEV
-        </a>
-        <nav className={styles.navLinks} aria-label="Navegação principal">
-          <a href="#trabalhos" aria-current={activeSection === 'trabalhos' ? 'page' : undefined}>
-            Projetos
-          </a>
-          <a href="#servicos" aria-current={activeSection === 'servicos' ? 'page' : undefined}>
-            Serviços
-          </a>
-        </nav>
-        <a className={styles.navContact} href="#contato" aria-current={activeSection === 'contato' ? 'page' : undefined}>
-          Contato <span aria-hidden="true">↗</span>
-        </a>
-      </header>
+      <PortfolioNavigation activeSection={activeSection} />
 
       <section className={styles.track} id="inicio" ref={trackRef}>
         <div className={styles.camera}>
@@ -425,22 +226,7 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
         </div>
       </section>
 
-      <section
-        className={styles.serviceHandoff}
-        id="transicao-servicos"
-        aria-label="Transição para serviços"
-        ref={handoffRef}
-      >
-        <div className={styles.handoffPin}>
-          <div className={styles.handoffCopy}>
-            <h2>
-              <span>Da presenca</span>
-              <span>ao que pode</span>
-              <span>ser construido</span>
-            </h2>
-          </div>
-        </div>
-      </section>
+      <ServiceHandoff ref={handoffRef} />
 
       <ServicesSection />
       <SelectedWorkSection />

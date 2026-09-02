@@ -1,0 +1,88 @@
+.nav {
+  position: fixed;
+  z-index: 60;
+  top: clamp(0.65rem, 1.5vw, 1.5rem);
+  right: clamp(0.65rem, 2vw, 2rem);
+  left: clamp(0.65rem, 2vw, 2rem);
+  min-height: 3.5rem;
+  padding: 0.5rem 0.6rem 0.5rem 1rem;
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) auto minmax(7rem, 1fr);
+  align-items: center;
+  gap: 1rem;
+  color: rgb(255 250 240 / 94%);
+  font: 0.64rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.nav a { text-decoration: none; outline-offset: 0.35rem; }
+
+.navBrand {
+  width: max-content;
+  font-family: 'Legacy Display', Impact, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+.navLinks { display: flex; align-items: center; gap: clamp(0.8rem, 2vw, 1.8rem); }
+
+.navLinks a {
+  position: relative;
+  padding: 0.7rem 0;
+  color: rgb(255 250 240 / 68%);
+  transition: color 160ms ease;
+}
+
+.navLinks a::after {
+  position: absolute;
+  right: 0;
+  bottom: 0.35rem;
+  left: 0;
+  height: 1px;
+  content: '';
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 160ms ease;
+}
+
+.navLinks a:hover,
+.navLinks a:focus-visible,
+.navLinks a[aria-current='page'] { color: #f2dfc1; }
+
+.navLinks a:hover::after,
+.navLinks a:focus-visible::after,
+.navLinks a[aria-current='page']::after { transform: scaleX(1); transform-origin: left; }
+
+.navContact {
+  justify-self: end;
+  padding: 0.7rem 0;
+  color: rgb(255 250 240 / 68%);
+  transition: color 160ms ease;
+}
+
+.navContact:hover,
+.navContact:focus-visible,
+.navContact[aria-current='page'] { color: #f2dfc1; }
+
+.navContact span { margin-left: 0.22rem; }
+
+@media (max-width: 760px) {
+  .nav {
+    top: 0.5rem;
+    right: 0.5rem;
+    left: 0.5rem;
+    min-height: 3.25rem;
+    padding: 0.35rem 0.4rem 0.35rem 0.75rem;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.55rem;
+    font-size: 0.52rem;
+  }
+
+  .navBrand { font-size: 0.9rem; }
+  .navLinks { justify-content: center; gap: 0.7rem; }
+  .navLinks a, .navContact { padding-block: 0.6rem; }
+  .navContact span { display: none; }
+}

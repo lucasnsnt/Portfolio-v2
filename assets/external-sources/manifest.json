@@ -1,5 +1,75 @@
 {
   "$schema": "./manifest.schema.json",
-  "assets": []
+  "assets": [
+    {
+      "id": "celestial-venus-mercury-1660",
+      "file": "archive/celestial-venus-mercury-1660.jpg",
+      "category": "archive",
+      "title": "Theoria Veneris et Mercurii",
+      "creator": "Rijksmuseum; original plate published in 1660",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hemelkaart_van_de_banen_van_Venus_en_Mercurius_Theoria_Veneris_et_Mercurii_(titel_op_object),_RP-P-AO-29-1-23.jpg",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "retrievedAt": "2026-09-01",
+      "intendedUse": "Recortar órbitas, círculos e inscrições como estrutura editorial de grande escala.",
+      "sha256": "8794d7432ca722032165dc0bbe3c7620395b67b14ae398af03afc67dfe428525",
+      "notes": "Usar fragmentos; a prancha completa é excessivamente ilustrativa para o produto."
+    },
+    {
+      "id": "large-sunflower-besler",
+      "file": "archive/large-sunflower-besler.jpg",
+      "category": "archive",
+      "title": "Large Sunflower (Flos Solis Maior)",
+      "creator": "Basilius Besler",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Unidentified_artist_-_Large_Sunflower_(Flos_Solis_Maior),_plate_1_from_part_5,_B._Besler,_%22Hortus_Eystettensis%22,_1713_edit..._-_Google_Art_Project.jpg",
+      "license": "Public Domain Mark 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "retrievedAt": "2026-09-01",
+      "intendedUse": "Extrair o miolo circular, pétalas e folhas para stickers ou máscaras de impressão.",
+      "sha256": "e8c6e346bd7e4217f00e1c7c948d33a2ef8f4cc666484d3a9cfd06725184bd25",
+      "notes": "A cor original é referência; derivações devem evitar aparência vintage decorativa literal."
+    },
+    {
+      "id": "clothes-moth-1860",
+      "file": "science/clothes-moth-1860.jpg",
+      "category": "science",
+      "title": "Clothes' Moth (Tinea pellionella)",
+      "creator": "Ilustrador não identificado",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Clothes%27_moth_(Tinea_pellionella).jpg",
+      "license": "Public Domain Mark 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "retrievedAt": "2026-09-01",
+      "intendedUse": "Isolar a mariposa frontal e detalhes do ciclo como stickers xerox independentes.",
+      "sha256": "c3c46b7a7d364944eef4ed19ad2c126c22e03e5ff904d92bfb1f57ffdbc45062",
+      "notes": "Prancha publicada em 1860; manter apenas fragmentos visualmente legíveis."
+    },
+    {
+      "id": "bosch-magneto-circuit-1911",
+      "file": "diagrams/bosch-magneto-circuit-1911.jpg",
+      "category": "diagrams",
+      "title": "Bosch Magneto Circuit",
+      "creator": "Autor original não identificado; digitalização de Andy Dingley",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bosch_magneto_circuit_(Army_Service_Corps_Training,_Mechanical_Transport,_1911).jpg",
+      "license": "Public Domain Mark 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "retrievedAt": "2026-09-01",
+      "intendedUse": "Transformar as linhas do circuito em uma faixa técnica ou desenho progressivo.",
+      "sha256": "7cd8517865c13dbbeb6351b52e642f410a7ac1c37db31719e829c21631bd2ce4",
+      "notes": "Fonte de baixa resolução, adequada a xerox e alto contraste, não a ampliação fotográfica limpa."
+    },
+    {
+      "id": "descartes-vision-diagram",
+      "file": "diagrams/descartes-vision-diagram.jpg",
+      "category": "diagrams",
+      "title": "Diagrams of vision from Descartes' body physics",
+      "creator": "Obra histórica de René Descartes; arquivo preparado por McLeod",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Descartes_body_physics_2.jpg",
+      "license": "Public Domain Mark 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "retrievedAt": "2026-09-01",
+      "intendedUse": "Recortar olho, mãos e raios ópticos para composição sobre percepção e interface.",
+      "sha256": "ea240a8b8e48b5030adb1c172a45b5723b06ac193f29d405cbfb7c85bc9d8c3c",
+      "notes": "É o candidato mais forte para uma composição fragmentada, sem exibir a prancha como uma página inteira."
+    }
+  ]
 }
-

@@ -47,6 +47,15 @@ export default function ServicesSection() {
       frame = 0;
       const viewport = Math.max(window.innerHeight, 1);
 
+      const sectionBounds = section.getBoundingClientRect();
+      const sectionTravel = Math.max(sectionBounds.height - viewport, 1);
+      const sectionProgress = clamp(-sectionBounds.top / sectionTravel);
+      section.style.setProperty('--section-p', sectionProgress.toFixed(4));
+      section.style.setProperty(
+        '--moth-wave',
+        Math.sin(sectionProgress * Math.PI * 4.5).toFixed(4),
+      );
+
       if (reducedMotion.matches) {
         section.style.setProperty('--intro-p', '1');
         entries.forEach((entry) => entry.style.setProperty('--entry-p', '1'));
@@ -108,21 +117,13 @@ export default function ServicesSection() {
       aria-labelledby="work-entry-title"
       ref={sectionRef}
     >
+      <div className={styles.mothJourney} aria-hidden="true">
+        <div className={styles.mothTraveler}>
+          <img src="/media/portfolio/artifacts/moth-flight.png" alt="" />
+        </div>
+      </div>
+
       <header className={styles.introduction} data-work-intro>
-        <div className={styles.portraitArtifact} aria-hidden="true">
-                  <div className={styles.portraitField} />
-                  <img
-                    className={styles.portraitGhost}
-                    src="/media/portfolio/cutouts/lucas-hoodie-silhouette-v1.png"
-                    alt=""
-                  />
-                  <img
-                    className={styles.portraitImage}
-                    src="/media/portfolio/cutouts/lucas-hoodie-silhouette-v1.png"
-                    alt=""
-                  />
-                  <div className={styles.portraitHalftone} />
-                </div>
         <h2 id="work-entry-title">
           Onde eu
           <span>entro</span>
@@ -145,28 +146,6 @@ export default function ServicesSection() {
             data-work-entry
           >
             <div className={styles.entryStage}>
-              {momentIndex === 1 && (
-                <div className={styles.technicalArtifact} aria-hidden="true">
-                  <div className={styles.technicalGrid} />
-                  <img
-                    className={styles.technicalFragment}
-                    src="/media/portfolio/fragments/code-fragment-v1.jpg"
-                    alt=""
-                  />
-                  <div className={styles.technicalAccent} />
-                </div>
-              )}
-
-              {momentIndex === 2 && (
-                <div className={styles.evolutionArtifact} aria-hidden="true">
-                  <div className={styles.evolutionShapeOne} />
-                  <div className={styles.evolutionShapeTwo} />
-                  <div className={styles.evolutionCore} />
-                </div>
-              )}
-
-              
-
               <p className={styles.echo} aria-hidden="true">{moment.echo}</p>
 
               <div className={styles.verbMask}>

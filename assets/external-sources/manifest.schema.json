@@ -33,6 +33,7 @@
           "licenseUrl": { "type": "string", "format": "uri" },
           "retrievedAt": { "type": "string", "format": "date" },
           "intendedUse": { "type": "string" },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
           "notes": { "type": "string" }
         },
         "additionalProperties": false
@@ -41,4 +42,3 @@
   },
   "additionalProperties": false
 }
-

@@ -1,6 +1,8 @@
 .section {
   --intro-p: 0;
-  --entry-bg: #100d0a;
+  --section-p: 0;
+  --moth-wave: 0;
+  --entry-bg: #121110;
   --entry-text: #e0c5a0;
   --entry-bright: #f2dfc1;
   --entry-muted: rgb(224 197 160 / 48%);
@@ -16,6 +18,19 @@
   background: var(--entry-bg);
 }
 
+.section::before {
+  position: absolute;
+  z-index: 8;
+  top: 0;
+  right: var(--entry-gutter);
+  left: var(--entry-gutter);
+  height: 1px;
+  content: '';
+  background: linear-gradient(90deg, var(--entry-bright) 0 18%, var(--entry-line) 18% 100%);
+  transform: scaleX(calc(0.35 + var(--intro-p) * 0.65));
+  transform-origin: left;
+}
+
 .introduction {
   position: relative;
   overflow: hidden;
@@ -26,9 +41,12 @@
   grid-template-rows: auto 1fr auto;
   gap: var(--entry-gap);
   border-bottom: 1px solid var(--entry-line);
+  isolation: isolate;
 }
 
 .introduction h2 {
+  position: relative;
+  z-index: 3;
   grid-column: 1 / -1;
   align-self: center;
   margin: 0;
@@ -54,6 +72,8 @@
 }
 
 .introCopy {
+  position: relative;
+  z-index: 4;
   grid-column: 7 / span 5;
   display: block;
   align-items: end;
@@ -69,6 +89,41 @@
 }
 
 .entries { border-bottom: 1px solid var(--entry-line); }
+
+.mothJourney {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+}
+
+.mothTraveler {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.mothTraveler img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: clamp(9rem, 15vw, 16rem);
+  height: auto;
+  display: block;
+  opacity: clamp(0, calc(var(--section-p) * 7), 0.34);
+  filter: grayscale(1) invert(1) contrast(1.8) brightness(0.78);
+  mix-blend-mode: screen;
+  transform: translate3d(
+    calc(16vw + var(--section-p) * 57vw + var(--moth-wave) * 5vw),
+    calc(-12vh + var(--section-p) * 89vh),
+    0
+  ) rotate(calc(-12deg + var(--section-p) * 24deg + var(--moth-wave) * 9deg))
+    scale(calc(0.72 + var(--section-p) * 0.36));
+  transform-origin: center;
+  will-change: opacity, transform;
+}
 
 .entry {
   --entry-p: 0;
@@ -93,64 +148,6 @@
 }
 
 .entry:last-child { border-bottom: 0; }
-
-.portraitArtifact {
-  position: absolute;
-  z-index: -1;
-  top: -5%;
-  right: -5%;
-  width: clamp(25rem, 50vw, 55rem);
-  height: 110%;
-  pointer-events: none;
-  opacity: clamp(0, calc(var(--intro-p) * 0.8), 0.8);
-  transform: translate3d(
-    calc((1 - var(--intro-p)) * 5vw),
-    calc((1 - var(--intro-p)) * 2rem),
-    0
-  );
-  filter: grayscale(1) contrast(3) brightness(0.4);
-  mix-blend-mode: hard-light;
-  mask-image: radial-gradient(circle at 70% 30%, #000 10%, transparent 60%);
-  -webkit-mask-image: radial-gradient(circle at 70% 30%, #000 10%, transparent 60%);
-  will-change: opacity, transform;
-}
-
-.portraitField {
-  display: none;
-}
-
-.portraitImage,
-.portraitGhost {
-  position: absolute;
-  inset: auto 0 0 auto;
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.portraitImage {
-  z-index: 1;
-  filter: contrast(30) sepia(1) hue-rotate(10deg) brightness(0.6);
-  opacity: 0.4;
-  mix-blend-mode: color-burn;
-}
-
-.portraitGhost {
-  z-index: 0;
-  filter: grayscale(1) contrast(20) invert(1);
-  opacity: 0.15;
-  transform: translate3d(-1rem, 1rem, 0);
-}
-
-.portraitHalftone {
-  position: absolute;
-  z-index: 2;
-  inset: 0;
-  background-image: radial-gradient(circle, #fff 1px, transparent 1.5px);
-  background-size: 8px 8px;
-  mix-blend-mode: overlay;
-  opacity: 0.6;
-}
 
 .echo {
   position: absolute;
@@ -375,15 +372,15 @@
 
   .entryDetails > p { max-width: 30rem; }
 
-  .portraitArtifact {
-    top: 10%;
-    right: -8.5rem;
-    width: clamp(22rem, 98vw, 34rem);
-    height: 66%;
-    opacity: clamp(0, calc(var(--intro-p) * 0.8), 0.72);
+  .mothTraveler img {
+    width: clamp(7.5rem, 31vw, 11rem);
+    opacity: clamp(0, calc(var(--section-p) * 7), 0.28);
+    transform: translate3d(
+      calc(7vw + var(--section-p) * 55vw + var(--moth-wave) * 7vw),
+      calc(-8vh + var(--section-p) * 82vh),
+      0
+    ) rotate(calc(-10deg + var(--section-p) * 20deg + var(--moth-wave) * 8deg));
   }
-
-  .portraitImage { opacity: 0.7; }
 
   .handoff {
     min-height: 68svh;
@@ -406,140 +403,17 @@
   .introduction h2 span,
   .introCopy { opacity: 1; transform: none; }
 
-  .portraitArtifact {
-    opacity: 0.62;
+  .mothJourney { position: absolute; }
+
+  .mothTraveler img {
+    top: auto;
+    right: 5%;
+    bottom: 8%;
+    left: auto;
+    opacity: 0.2;
     transform: none;
-    clip-path: inset(0);
   }
-
-  .portraitImage,
-  .portraitGhost,
-  .portraitField { transform: none; }
-
-  .portraitGhost { opacity: 0.12; }
 
   .handoff a,
   .handoff a::after { transition: none; }
-}
-
-/* Technical Artifact (Construir) */
-.technicalArtifact {
-  position: absolute;
-  z-index: 0;
-  top: 10%;
-  left: clamp(-4rem, -10vw, -12rem);
-  width: clamp(24rem, 38vw, 44rem);
-  height: 80%;
-  opacity: clamp(0, calc((var(--entry-p) - 0.1) * 3), 0.85);
-  transform: translate3d(
-    calc((1 - var(--entry-p)) * -4rem),
-    calc((var(--entry-wave) - 0.5) * -2rem),
-    0
-  );
-  will-change: opacity, transform;
-}
-
-.technicalGrid {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(to right, rgb(242 223 193 / 8%) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(242 223 193 / 8%) 1px, transparent 1px);
-  background-size: 2rem 2rem;
-  mask-image: radial-gradient(circle at 40% 50%, #000 30%, transparent 70%);
-  -webkit-mask-image: radial-gradient(circle at 40% 50%, #000 30%, transparent 70%);
-  transform: scale(calc(1 + var(--entry-wave) * 0.1));
-}
-
-.technicalFragment {
-  position: absolute;
-  top: 20%;
-  left: 15%;
-  width: 70%;
-  height: auto;
-  filter: grayscale(1) sepia(0.2) contrast(1.5) brightness(0.7);
-  mix-blend-mode: hard-light;
-  clip-path: polygon(
-    0 0, 
-    calc(100% - var(--entry-wave) * 10%) 0, 
-    100% calc(100% - var(--entry-wave) * 10%), 
-    0 100%
-  );
-  transform: translateY(calc(var(--entry-wave) * 2rem));
-}
-
-.technicalAccent {
-  position: absolute;
-  bottom: 10%;
-  left: 5%;
-  width: 20%;
-  height: 2px;
-  background: var(--entry-bright);
-  transform: scaleX(var(--entry-p));
-  transform-origin: left;
-  opacity: 0.6;
-}
-
-/* Evolution Artifact (Evoluir) */
-.evolutionArtifact {
-  position: absolute;
-  z-index: 0;
-  top: 15%;
-  right: clamp(2rem, 10vw, 15rem);
-  width: clamp(20rem, 30vw, 36rem);
-  aspect-ratio: 1;
-  opacity: clamp(0, calc((var(--entry-p) - 0.2) * 2.5), 0.9);
-  transform: translateY(calc((1 - var(--entry-p)) * 6rem));
-  will-change: opacity, transform;
-}
-
-.evolutionShapeOne,
-.evolutionShapeTwo {
-  position: absolute;
-  inset: 0;
-  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-  background: radial-gradient(circle at 30% 30%, rgb(93 47 25 / 40%), transparent 60%);
-  filter: blur(1rem);
-  mix-blend-mode: screen;
-  transform: rotate(calc(var(--entry-p) * 90deg)) scale(calc(0.8 + var(--entry-wave) * 0.4));
-  transition: transform 0.1s linear;
-}
-
-.evolutionShapeTwo {
-  border-radius: 60% 40% 30% 70% / 50% 40% 50% 60%;
-  background: radial-gradient(circle at 70% 70%, rgb(186 118 72 / 30%), transparent 60%);
-  transform: rotate(calc(var(--entry-p) * -60deg)) scale(calc(1.2 - var(--entry-wave) * 0.2));
-}
-
-.evolutionCore {
-  position: absolute;
-  inset: 25%;
-  border-radius: 50%;
-  background: var(--entry-bright);
-  opacity: calc(0.05 + var(--entry-wave) * 0.15);
-  filter: blur(2rem);
-  transform: scale(calc(1 + var(--entry-wave) * 0.5));
-}
-
-@media (max-width: 760px) {
-  .technicalArtifact, .evolutionArtifact {
-    display: none; /* Simplify on mobile for now */
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .technicalArtifact, .evolutionArtifact {
-    transform: none;
-    opacity: 0.5;
-  }
-  .evolutionShapeOne, .evolutionShapeTwo {
-    transform: none;
-  }
-  .technicalGrid {
-    transform: none;
-  }
-  .technicalFragment {
-    transform: none;
-    clip-path: none;
-  }
 }

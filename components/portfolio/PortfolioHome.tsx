@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import styles from './portfolio-home.module.css';
 import KineticTitle from '../experiments/kinetic-title/KineticTitle';
 import ServicesSection from './ServicesSection';
+import SelectedWorkSection from './SelectedWorkSection';
 
 const terminalProductionImage =
   '/media/projects/unemployment-killer/vps-spring-production.png';
@@ -135,11 +136,10 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
 
       if (handoff) {
         const handoffBounds = handoff.getBoundingClientRect();
-        const handoffProgress = clamp(
-          (window.innerHeight - handoffBounds.top) / Math.max(window.innerHeight + handoffBounds.height, 1),
-        );
-        const handoffReveal = clamp((handoffProgress - 0.18) / 0.46);
-        const handoffExit = clamp((handoffProgress - 0.62) / 0.3);
+        const handoffTravel = Math.max(handoffBounds.height - window.innerHeight, 1);
+        const handoffProgress = clamp(-handoffBounds.top / handoffTravel);
+        const handoffReveal = clamp((handoffProgress - 0.1) / 0.44);
+        const handoffExit = clamp((handoffProgress - 0.72) / 0.28);
 
         handoff.style.setProperty('--handoff-p', handoffProgress.toFixed(4));
         handoff.style.setProperty('--handoff-reveal', handoffReveal.toFixed(4));
@@ -396,6 +396,7 @@ export default function PortfolioHome({ openingVariant = 'default' }: PortfolioH
       </section>
 
       <ServicesSection />
+      <SelectedWorkSection />
     </main>
   );
 }
